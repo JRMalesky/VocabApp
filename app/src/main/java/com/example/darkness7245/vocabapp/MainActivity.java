@@ -2,6 +2,8 @@ package com.example.darkness7245.vocabapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,7 +11,7 @@ import android.widget.EditText;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.Random;
-
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -32,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
         Button nextbtn = (Button) findViewById(R.id.btnnext);
         //setting the word text box to the given word
         word = word.toLowerCase();
-        word = ScrambleWord(word);
-        wordtxt.setText(word);
+        String scrambledword = ScrambleWord(word);
+        wordtxt.setText(scrambledword);
 
         hintbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +76,27 @@ public class MainActivity extends AppCompatActivity {
                 hintthree.setText(empty);
                 wordtxt.setText(word);
                 numberofhints = 0;
+            }
+        });
+        userinput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String userword = userinput.getText().toString();
+                if (CheckWord(word, userword))
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Correct", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
         });
     }
@@ -124,21 +147,10 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean CheckWord(String a, String b)
     {
+
         a = a.toLowerCase();
         b = b.toLowerCase();
-        int letter_check = 0;
-        char c[] = a.toCharArray();
-        char d[] = b.toCharArray();
-        for (int i = 0; i < a.length(); i++)
-        {
-            if (c[i] == d[i])
-            {
-                //checking each letter in the string and keeping track of how many are correct
-                letter_check++;
-            }
-        }
-        //return true if all the letter match
-        if (letter_check == a.length())
+        if (a.equals(b))
             return  true;
         else
             return  false;
