@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         Button hintbtn = (Button) findViewById(R.id.btnHInt);
         Button nextbtn = (Button) findViewById(R.id.btnnext);
         //setting the word text box to the given word
+        word = word.toLowerCase();
+        word = ScrambleWord(word);
         wordtxt.setText(word);
 
         hintbtn.setOnClickListener(new View.OnClickListener() {
