@@ -2,16 +2,59 @@ package com.example.darkness7245.vocabapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
 import java.util.Random;
+
+
 
 public class MainActivity extends AppCompatActivity {
 
+    int numberofhints = 0;
+    EditText hintone, hinttwo, hintthree;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        hintone = (EditText) findViewById(R.id.txthintone);
+        hinttwo = (EditText) findViewById(R.id.txthinetwo);
+        hintthree = (EditText) findViewById(R.id.txthintthree);
+        Button hintbtn = (Button) findViewById(R.id.btnHInt);
+        hintbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                if (numberofhints < 4)
+                {
+                    numberofhints++;
+                }
+                if (numberofhints == 1)
+                {
+                    String word = "dog";
+                    String firstLetter = String.valueOf(word.charAt(0));
+                    hintone.setText(firstLetter);
+                }
+                if (numberofhints == 2)
+                {
+                    String sentence = "A dog is a man best friend.";
+                    hinttwo.setText(sentence);
+                }
+                if(numberofhints == 3)
+                {
+                    String synandant= "pup, doggo, doggy, puppo, puppy";
+                    hintthree.setText(synandant);
+                }
+            }
+        });
+
     }
 
 
