@@ -18,7 +18,8 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     int numberofhints = 0;
-    EditText hintone, hinttwo, hintthree;
+    String word = "dog";
+    EditText hintone, hinttwo, hintthree, wordtxt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +28,10 @@ public class MainActivity extends AppCompatActivity {
         hintone = (EditText) findViewById(R.id.txthintone);
         hinttwo = (EditText) findViewById(R.id.txthinetwo);
         hintthree = (EditText) findViewById(R.id.txthintthree);
+        wordtxt = (EditText) findViewById(R.id.txtword);
         Button hintbtn = (Button) findViewById(R.id.btnHInt);
+        Button nextbtn = (Button) findViewById(R.id.btnnext);
+        wordtxt.setText(word);
         hintbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -38,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (numberofhints == 1)
                 {
-                    String word = "dog";
+
                     String firstLetter = String.valueOf(word.charAt(0));
                     hintone.setText(firstLetter);
                 }
@@ -49,12 +53,22 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(numberofhints == 3)
                 {
-                    String synandant= "pup, doggo, doggy, puppo, puppy";
+                    String synandant = "pup, doggo, doggy, puppo, puppy";
                     hintthree.setText(synandant);
                 }
             }
         });
-
+        nextbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String empty = "";
+                hintone.setText(empty);
+                hinttwo.setText(empty);
+                hintthree.setText(empty);
+                wordtxt.setText(word);
+                numberofhints = 0;
+            }
+        });
     }
 
 
