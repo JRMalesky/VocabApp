@@ -3,6 +3,7 @@ package com.example.darkness7245.vocabapp;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.util.Dictionary;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public int randomdificulty()
+    public int randomdificulty(Dictionary entry)
     {
         Random rand = new Random();
         return rand.nextInt(3);
@@ -34,6 +35,22 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return new String( a );
+    }
+
+    public int CheckDiff(String a)
+    {
+        if(a.length() < 4)
+        {
+            return 0;
+        }
+        else if (a.length() > 4 && a.length() < 6)
+        {
+            return  1;
+        }
+        else
+        {
+            return  3;
+        }
     }
 
 }
