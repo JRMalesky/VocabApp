@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public int randomdificulty(Dictionary entry)
+    public int Random_Difficulty()
     {
         Random rand = new Random();
         return rand.nextInt(3);
@@ -37,13 +37,13 @@ public class MainActivity extends AppCompatActivity {
         return new String( a );
     }
 
-    public int CheckDiff(String a)
+    public int CheckDifficulty(String a)
     {
         if(a.length() < 4)
         {
             return 0;
         }
-        else if (a.length() > 4 && a.length() < 6)
+        else if (a.length() > 4 && a.length() < 7)
         {
             return  1;
         }
@@ -52,5 +52,24 @@ public class MainActivity extends AppCompatActivity {
             return  3;
         }
     }
+
+    public boolean CheckWord(String a, String b)
+    {
+        int letter_check = 0;
+        char c[] = a.toCharArray();
+        char d[] = b.toCharArray();
+        for (int i = 0; i < a.length(); i++)
+        {
+            if (c[i] == d[i])
+            {
+                letter_check++;
+            }
+        }
+        if (letter_check == a.length())
+            return  true;
+        else
+            return  false;
+    }
+
 
 }
