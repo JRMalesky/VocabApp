@@ -9,8 +9,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Queue;
 import java.util.Random;
@@ -43,19 +47,32 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         tv_text = (TextView) findViewById(R.id.txtviewword);
 
 
-        b_scramble.setOnClickListener(new View.OnClickListener() {
+        b_scramble.setOnClickListener(new View.OnClickListener(){
             @Override
 
-            public void onClick(View view) {
-                String text = " ";
+            public void onClick(View view){
+                List<String> lines=new ArrayList<String>();
+                String text=" ";
                 try {
+
+
                     InputStream is = getAssets().open("10EnglishWithDefinition.txt");
-                    int size = is.available();
-                    byte[] buffer = new byte[size];
-                    is.read(buffer);
-                    is.close();
-                    text = new String(buffer);
-                } catch (IOException ex) {
+                    BufferedReader reader=new BufferedReader((new InputStreamReader(is)));
+                    String line=reader.readLine();
+                    while(line!=null)
+                    {
+                        lines.add(line);
+                        line=reader.readLine();
+
+                    }
+                    Random r=new Random();
+                    text=lines.get(r.nextInt(lines.size()));
+
+
+                }
+
+
+                catch(IOException ex){
 
                     ex.printStackTrace();
                 }
