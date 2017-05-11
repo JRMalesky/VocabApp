@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -83,8 +84,9 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                     }
                     String[] parts = text.split(":");
                     word = parts[0];
+                    String scramble = ScrambleWord(word);
                     definition = parts[1];
-                    tv_text.setText(word);
+                    tv_text.setText(scramble);
                     def.setText(definition);
 
 
@@ -124,27 +126,31 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 }
             }
         });
-        userinput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String userword = userinput.getText().toString();
-                if (CheckWord(word, userword))
+        userinput.setOnKeyListener(new View.OnKeyListener()
+        {
+            public boolean onKey(View v, int keyCode, KeyEvent event)
+            {
+                if (event.getAction() == KeyEvent.ACTION_DOWN)
                 {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Correct", Toast.LENGTH_SHORT);
-                    toast.show();
+                    switch (keyCode)
+                    {
+                        case KeyEvent.KEYCODE_DPAD_CENTER:
+                        case KeyEvent.KEYCODE_ENTER:
+                            String userword = userinput.getText().toString();
+                            if (CheckWord(word, userword))
+                            {
+                                Toast toast = Toast.makeText(getApplicationContext(), "Correct", Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                            return true;
+                        default:
+                            break;
+                    }
                 }
+                return false;
             }
         });
+
     }
 
     public int Random_Difficulty() {
