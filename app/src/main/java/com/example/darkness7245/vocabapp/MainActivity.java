@@ -67,6 +67,16 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                     ex.printStackTrace();
                 }
                 tv_text.setText(text);
+
+
+
+
+
+
+
+
+
+
                 String[] parts = text.split(":");
                 word = parts[0];
                 String empty = "";
@@ -91,13 +101,13 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                     String firstLetter = String.valueOf(text.charAt(0));
                     hintone.setText(firstLetter);
                 }
-                if (numberofhints == 2)
+                else if (numberofhints == 2)
                 {
                     //second hint sentence
                     String sentence = "A dog is a man's best friend.";
                     hinttwo.setText(sentence);
                 }
-                if(numberofhints == 3)
+                else if(numberofhints == 3)
                 {
                     //third hint syn and ant
                     String synandant = "pup, doggo, doggy, puppo, puppy";
@@ -119,7 +129,6 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
             @Override
             public void afterTextChanged(Editable s) {
                 String userword = userinput.getText().toString();
-                word = word.toLowerCase();
                 if (CheckWord(word, userword))
                 {
                     Toast toast = Toast.makeText(getApplicationContext(), "Correct", Toast.LENGTH_SHORT);
