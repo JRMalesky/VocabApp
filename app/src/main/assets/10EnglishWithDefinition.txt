@@ -1,20 +1,10 @@
 Game:A form of play or sport, especially a competitive one played according to rules and decided by skill, strength, or luck.
-
 Simulation:The technique of representing the real world by a computer program.
-
 Animation:The technique of photographing successive drawings or positions of puppets or models to create an illusion of movement when the movie is shown as a sequence.
-
 Music:An art form and cultural activity whose medium is sound organized in time.
-
 Photoshop:To edit an image using a computer program.
-
 Dream:To pursue the goal you are dreaming of.
-
 Hall of Fame:A hall, wall, or walk of fame is a list of individuals, achievements, or animals, usually chosen by a group of electors, to mark their fame in their field.
-
-Dictionary:A reference source in print or electronic form containing words usually alphabetically arranged along with information about their forms, 
-pronunciations, functions, etymologies, meanings, and syntactic and idiomatic uses.
-
+Dictionary:A reference source in print or electronic form containing words usually alphabetically arranged along with information about their forms, pronunciations, functions, etymologies, meanings, and syntactic and idiomatic uses.
 SideKick:A person's assistant or close associate, especially one who has less authority than that person.
-
 Facebook:A popular free social networking website that allows registered users to create profiles, upload photos and video, send messages and keep in touch with friends, family and colleagues.

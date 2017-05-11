@@ -24,16 +24,17 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity { //implements TextToSpeech.OnInitListener
 
-    TextView txtviewword;
-    Button btnnext;
+    TextView tv_text, def;
+    Button b_scramble;
     Button b_s;
     EditText hintone, hinttwo, hintthree, wordtxt, userinput;
     int numberofhints = 0;
     /*private TextToSpeech tts;
     private Button S;
     private TextView getTextToSpeak;*/
-    String text = " ";
+
     String word = "";
+    String definition = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,21 +46,22 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         userinput = (EditText) findViewById(R.id.txtinput);
         Button hintbtn = (Button) findViewById(R.id.btnHInt);
         //Button nextbtn = (Button) findViewById(R.id.btnnext);
-        btnnext = (Button) findViewById(R.id.btnnext);
+        b_scramble = (Button) findViewById(R.id.btnnext);
         //b_s = (Button) findViewById((R.id.b_s));
-        txtviewword = (TextView) findViewById(R.id.txtviewword);
-
+        tv_text = (TextView) findViewById(R.id.txtviewword);
+        def = (TextView) findViewById(R.id.txtviewdef);
 
         //word = word.toLowerCase();
         //String scrambledword = ScrambleWord(word);
         //wordtxt.setText(scrambledword);
 
 
-        btnnext.setOnClickListener(new View.OnClickListener() {
+        b_scramble.setOnClickListener(new View.OnClickListener() {
             @Override
 
                 public void onClick (View view){
                     List<String> lines = new ArrayList<String>();
+                    String text = " ";
                     try {
 
 
@@ -79,11 +81,14 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
                         ex.printStackTrace();
                     }
-                txtviewword.setText(text);
-
-
                     String[] parts = text.split(":");
                     word = parts[0];
+                    definition = parts[1];
+                    tv_text.setText(word);
+                    def.setText(definition);
+
+
+
                     String empty = "";
                     hintone.setText(empty);
                     hinttwo.setText(empty);
@@ -97,27 +102,25 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
             @Override
             public void onClick(View v)
             {
-                if (numberofhints < 4)
-                {
-                    numberofhints++;
-                }
-                if (numberofhints == 1)
-                {
-                    //first hint first letter of the given word
-                    String firstLetter = String.valueOf(word.charAt(0));
-                    hintone.setText(firstLetter);
-                }
-                else if (numberofhints == 2)
-                {
-                    //second hint sentence
-                    String sentence = "A dog is a man's best friend.";
-                    hinttwo.setText(sentence);
-                }
-                else if(numberofhints == 3)
-                {
-                    //third hint syn and ant
-                    String synandant = "pup, doggo, doggy, puppo, puppy";
-                    hintthree.setText(synandant);
+                if (!word.isEmpty()) {
+
+
+                    if (numberofhints < 4) {
+                        numberofhints++;
+                    }
+                    if (numberofhints == 1) {
+                        //first hint first letter of the given word
+                        String firstLetter = String.valueOf(word.charAt(0));
+                        hintone.setText(firstLetter);
+                    } else if (numberofhints == 2) {
+                        //second hint sentence
+                        String sentence = "A dog is a man's best friend.";
+                        hinttwo.setText(sentence);
+                    } else if (numberofhints == 3) {
+                        //third hint syn and ant
+                        String synandant = "pup, doggo, doggy, puppo, puppy";
+                        hintthree.setText(synandant);
+                    }
                 }
             }
         });
