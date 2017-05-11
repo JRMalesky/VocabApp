@@ -24,8 +24,8 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity { //implements TextToSpeech.OnInitListener
 
-    TextView tv_text;
-    Button b_scramble;
+    TextView txtviewword;
+    Button btnnext;
     Button b_s;
     EditText hintone, hinttwo, hintthree, wordtxt, userinput;
     int numberofhints = 0;
@@ -45,9 +45,9 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         userinput = (EditText) findViewById(R.id.txtinput);
         Button hintbtn = (Button) findViewById(R.id.btnHInt);
         //Button nextbtn = (Button) findViewById(R.id.btnnext);
-        b_scramble = (Button) findViewById(R.id.btnnext);
+        btnnext = (Button) findViewById(R.id.btnnext);
         //b_s = (Button) findViewById((R.id.b_s));
-        tv_text = (TextView) findViewById(R.id.txtviewword);
+        txtviewword = (TextView) findViewById(R.id.txtviewword);
 
 
         //word = word.toLowerCase();
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         //wordtxt.setText(scrambledword);
 
 
-        b_scramble.setOnClickListener(new View.OnClickListener() {
+        btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
 
                 public void onClick (View view){
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
                         ex.printStackTrace();
                     }
-                    tv_text.setText(text);
+                txtviewword.setText(text);
 
 
                     String[] parts = text.split(":");
