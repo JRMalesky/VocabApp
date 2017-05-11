@@ -135,29 +135,34 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 }
             }
         });
+
         userinput.setOnKeyListener(new View.OnKeyListener()
         {
             public boolean onKey(View v, int keyCode, KeyEvent event)
             {
                 if (event.getAction() == KeyEvent.ACTION_DOWN)
                 {
-                    switch (keyCode)
+
+                    if(keyCode==KeyEvent.KEYCODE_ENTER)
                     {
-                        case KeyEvent.KEYCODE_DPAD_CENTER:
-                        case KeyEvent.KEYCODE_ENTER:
-                            String userword = userinput.getText().toString();
-                            if (CheckWord(word, userword))
-                            {
-                                Toast toast = Toast.makeText(getApplicationContext(), "Correct", Toast.LENGTH_SHORT);
-                                toast.show();
-                            }
-                            return true;
-                        default:
-                            break;
+                        String userInput=userinput.getText().toString();
+                        if (CheckWord(word, userInput)==true)
+                        {
+                            Toast toast = Toast.makeText(getApplicationContext(), "Correct !", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                        else if(CheckWord(word, userInput)==false)
+                        {
+                            Toast toast = Toast.makeText(getApplicationContext(), "Wrong ! Please guess again !", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                        return true;
+
                     }
                 }
                 return false;
             }
+
         });
 
     }
