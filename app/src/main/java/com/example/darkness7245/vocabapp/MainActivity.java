@@ -12,8 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Queue;
 import java.util.Random;
@@ -50,41 +54,43 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         //String scrambledword = ScrambleWord(word);
         //wordtxt.setText(scrambledword);
 
+
         b_scramble.setOnClickListener(new View.OnClickListener() {
             @Override
 
-            public void onClick(View view) {
+                public void onClick (View view){
+                    List<String> lines = new ArrayList<String>();
+                    try {
 
-                try {
-                    InputStream is = getAssets().open("10EnglishWithDefinition.txt");
-                    int size = is.available();
-                    byte[] buffer = new byte[size];
-                    is.read(buffer);
-                    is.close();
-                    text = new String(buffer);
-                } catch (IOException ex) {
 
-                    ex.printStackTrace();
+                        InputStream is = getAssets().open("10EnglishWithDefinition.txt");
+                        BufferedReader reader = new BufferedReader((new InputStreamReader(is)));
+                        String line = reader.readLine();
+                        while (line != null) {
+                            lines.add(line);
+                            line = reader.readLine();
+
+                        }
+                        Random r = new Random();
+                        text = lines.get(r.nextInt(lines.size()));
+
+
+                    } catch (IOException ex) {
+
+                        ex.printStackTrace();
+                    }
+                    tv_text.setText(text);
+
+
+                    String[] parts = text.split(":");
+                    word = parts[0];
+                    String empty = "";
+                    hintone.setText(empty);
+                    hinttwo.setText(empty);
+                    hintthree.setText(empty);
+                    numberofhints = 0;
                 }
-                tv_text.setText(text);
 
-
-
-
-
-
-
-
-
-
-                String[] parts = text.split(":");
-                word = parts[0];
-                String empty = "";
-                hintone.setText(empty);
-                hinttwo.setText(empty);
-                hintthree.setText(empty);
-                numberofhints = 0;
-            }
 
         });
         hintbtn.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +104,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 if (numberofhints == 1)
                 {
                     //first hint first letter of the given word
-                    String firstLetter = String.valueOf(text.charAt(0));
+                    String firstLetter = String.valueOf(word.charAt(0));
                     hintone.setText(firstLetter);
                 }
                 else if (numberofhints == 2)
