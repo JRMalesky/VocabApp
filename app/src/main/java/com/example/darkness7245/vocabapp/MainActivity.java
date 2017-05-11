@@ -25,10 +25,10 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity { //implements TextToSpeech.OnInitListener
 
-    TextView tv_text, def;
+    TextView tv_text, def, hint2;
     Button b_scramble;
     Button b_s;
-    EditText hintone, hinttwo, hintthree, wordtxt, userinput;
+    EditText hintone, hintthree, wordtxt, userinput;
     int numberofhints = 0;
     TextToSpeech tts;
     /*private TextToSpeech tts;
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         });
 
         hintone = (EditText) findViewById(R.id.txthintone);
-        hinttwo = (EditText) findViewById(R.id.txthinetwo);
+        //hinttwo = (EditText) findViewById(R.id.txthinetwo);
         hintthree = (EditText) findViewById(R.id.txthintthree);
         //wordtxt = (EditText) findViewById(R.id.txtword);
         userinput = (EditText) findViewById(R.id.txtinput);
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         //b_s = (Button) findViewById((R.id.b_s));
         tv_text = (TextView) findViewById(R.id.txtviewword);
         def = (TextView) findViewById(R.id.txtviewdef);
-
+        hint2 = (TextView) findViewById(R.id.txtviewhint2);
         //word = word.toLowerCase();
         //String scrambledword = ScrambleWord(word);
         //wordtxt.setText(scrambledword);
@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
                         ex.printStackTrace();
                     }
+
                     String[] parts = text.split(":");
                     word = parts[0];
                     String scramble = ScrambleWord(word);
@@ -102,7 +103,8 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
                     String empty = "";
                     hintone.setText(empty);
-                    hinttwo.setText(empty);
+                    //hinttwo.setText(empty);
+                    hint2.setText(empty);
                     hintthree.setText(empty);
                     numberofhints = 0;
                 }
@@ -125,8 +127,36 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                         hintone.setText(firstLetter);
                     } else if (numberofhints == 2) {
                         //second hint sentence
+                        List<String> sentences = new ArrayList<String>();
+                        String sentword = " ";
                         String sentence = "A dog is a man's best friend.";
-                        hinttwo.setText(sentence);
+                        try {
+                            InputStream is = getAssets().open("wordsandsentecnes.txt");
+                            BufferedReader reader = new BufferedReader((new InputStreamReader(is)));
+                            String line = reader.readLine();
+                            while (line != null){
+                                sentences.add(line);
+                                line = reader.readLine();
+                            }
+                            int index = 0;
+                            while (true)
+                            {
+                                String[] sentpart = sentences.get(index).split(":");
+                                sentword = sentpart[0];
+                                if (CheckWord(word, sentword)){
+                                    sentence = sentpart[1];
+                                    break;
+                                }
+                                index++;
+                            }
+
+                        }
+                        catch (IOException ex){
+                            ex.printStackTrace();
+                        }
+
+                        //hinttwo.setText(sentence);
+                        hint2.setText(sentence);
                     } else if (numberofhints == 3) {
                         //third hint syn and ant
                         String synandant = "pup, doggo, doggy, puppo, puppy";
@@ -148,12 +178,12 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                         String userInput=userinput.getText().toString();
                         if (CheckWord(word, userInput)==true)
                         {
-                            Toast toast = Toast.makeText(getApplicationContext(), "Correct !", Toast.LENGTH_SHORT);
+                            Toast toast = Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_SHORT);
                             toast.show();
                         }
                         else if(CheckWord(word, userInput)==false)
                         {
-                            Toast toast = Toast.makeText(getApplicationContext(), "Wrong ! Please guess again !", Toast.LENGTH_SHORT);
+                            Toast toast = Toast.makeText(getApplicationContext(), "Wrong! Please guess again!", Toast.LENGTH_SHORT);
                             toast.show();
                         }
                         return true;
