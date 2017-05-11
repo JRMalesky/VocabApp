@@ -3,10 +3,13 @@ package com.example.darkness7245.vocabapp;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.io.IOException;
@@ -26,7 +29,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
     private Button S;
     private TextView getTextToSpeak;*/
     String text = " ";
-
+    String word = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         //wordtxt = (EditText) findViewById(R.id.txtword);
         userinput = (EditText) findViewById(R.id.txtinput);
         Button hintbtn = (Button) findViewById(R.id.btnHInt);
-        Button nextbtn = (Button) findViewById(R.id.btnnext);
+        //Button nextbtn = (Button) findViewById(R.id.btnnext);
         b_scramble = (Button) findViewById(R.id.btnnext);
         //b_s = (Button) findViewById((R.id.b_s));
         tv_text = (TextView) findViewById(R.id.txtviewword);
@@ -64,6 +67,13 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                     ex.printStackTrace();
                 }
                 tv_text.setText(text);
+                String[] parts = text.split(":");
+                word = parts[0];
+                String empty = "";
+                hintone.setText(empty);
+                hinttwo.setText(empty);
+                hintthree.setText(empty);
+                numberofhints = 0;
             }
 
         });
@@ -95,7 +105,28 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 }
             }
         });
+        userinput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String userword = userinput.getText().toString();
+                word = word.toLowerCase();
+                if (CheckWord(word, userword))
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Correct", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        });
     }
 
     public int Random_Difficulty() {
