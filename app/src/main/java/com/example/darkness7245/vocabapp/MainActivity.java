@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.text.Editable;
+import android.widget.Toast;
+
 
 
 import java.io.BufferedReader;
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
     Button b_scramble;
     Button b_s;
     EditText hintone, hinttwo, hintthree, wordtxt, userinput;
+    String text=" ";
 
     /*private TextToSpeech tts;
     private Button S;
@@ -52,7 +56,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
             public void onClick(View view){
                 List<String> lines=new ArrayList<String>();
-                String text=" ";
+
                 try {
 
 
