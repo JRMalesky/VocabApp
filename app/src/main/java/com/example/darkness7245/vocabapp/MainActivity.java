@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
     Button b_s;
     EditText hintone, hinttwo, hintthree, wordtxt, userinput;
     int numberofhints = 0;
+    TextToSpeech tts;
     /*private TextToSpeech tts;
     private Button S;
     private TextView getTextToSpeak;*/
@@ -40,6 +41,14 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        tts=new TextToSpeech(getApplicationContext(),new TextToSpeech.OnInitListener() {
+            public void onInit(int status)
+            {
+                if(status!=TextToSpeech.ERROR)
+                    tts.setLanguage(Locale.US);
+            }
+        });
+
         hintone = (EditText) findViewById(R.id.txthintone);
         hinttwo = (EditText) findViewById(R.id.txthinetwo);
         hintthree = (EditText) findViewById(R.id.txthintthree);
@@ -194,6 +203,12 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
             return true;
         else
             return false;
+    }
+
+    public void speakOut(View view)
+    {
+        String string=tv_text.getText().toString();
+        tts.speak(string,TextToSpeech.QUEUE_FLUSH,null,null);
     }
 
 
