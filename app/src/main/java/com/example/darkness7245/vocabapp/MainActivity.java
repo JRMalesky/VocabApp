@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
     public void speakOut(View view)
     {
-        String string=tv_text.getText().toString();
+        String string=word;
         tts.speak(string,TextToSpeech.QUEUE_FLUSH,null,null);
     }
 
