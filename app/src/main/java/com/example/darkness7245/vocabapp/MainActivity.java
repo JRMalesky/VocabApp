@@ -25,10 +25,10 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity { //implements TextToSpeech.OnInitListener
 
-    TextView tv_text, def, hint2;
+    TextView tv_text, def, hint2, hint3;
     Button b_scramble;
     Button b_s;
-    EditText hintone, hintthree, wordtxt, userinput;
+    EditText hintone, wordtxt, userinput;
     int numberofhints = 0;
     TextToSpeech tts;
     /*private TextToSpeech tts;
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
         hintone = (EditText) findViewById(R.id.txthintone);
         //hinttwo = (EditText) findViewById(R.id.txthinetwo);
-        hintthree = (EditText) findViewById(R.id.txthintthree);
+        //hintthree = (EditText) findViewById(R.id.txthintthree);
         //wordtxt = (EditText) findViewById(R.id.txtword);
         userinput = (EditText) findViewById(R.id.txtinput);
         Button hintbtn = (Button) findViewById(R.id.btnHInt);
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         tv_text = (TextView) findViewById(R.id.txtviewword);
         def = (TextView) findViewById(R.id.txtviewdef);
         hint2 = (TextView) findViewById(R.id.txtviewhint2);
+        hint3 = (TextView) findViewById(R.id.txtview3rdhint);
         //word = word.toLowerCase();
         //String scrambledword = ScrambleWord(word);
         //wordtxt.setText(scrambledword);
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                     hintone.setText(empty);
                     //hinttwo.setText(empty);
                     hint2.setText(empty);
-                    hintthree.setText(empty);
+                    hint3.setText(empty);
                     numberofhints = 0;
                 }
 
@@ -160,7 +161,33 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                     } else if (numberofhints == 3) {
                         //third hint syn and ant
                         String synandant = "pup, doggo, doggy, puppo, puppy";
-                        hintthree.setText(synandant);
+                        List<String> sentences = new ArrayList<String>();
+                        String synword = " ";
+                        try {
+                            InputStream is = getAssets().open("antandsyn.txt");
+                            BufferedReader reader = new BufferedReader((new InputStreamReader(is)));
+                            String line = reader.readLine();
+                            while (line != null){
+                                sentences.add(line);
+                                line = reader.readLine();
+                            }
+                            int index = 0;
+                            while (true)
+                            {
+                                String[] sentpart = sentences.get(index).split(":");
+                                synword = sentpart[0];
+                                if (CheckWord(word, synword)){
+                                    synandant = sentpart[1];
+                                    break;
+                                }
+                                index++;
+                            }
+
+                        }
+                        catch (IOException ex){
+                            ex.printStackTrace();
+                        }
+                        hint3.setText(synandant);
                     }
                 }
             }
