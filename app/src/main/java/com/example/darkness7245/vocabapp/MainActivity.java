@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
     String word = "";
     String definition = "";
+    int numofcorrect = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +73,9 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
                 public void onClick (View view){
                     List<String> lines = new ArrayList<String>();
+
+
+
                     String text = " ";
                     try {
 
@@ -92,13 +96,32 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
                         ex.printStackTrace();
                     }
-
-                    String[] parts = text.split(":");
-                    word = parts[0];
-                    String scramble = ScrambleWord(word);
-                    definition = parts[1];
-                    tv_text.setText(scramble);
-                    def.setText(definition);
+                    while (true) {
+                        word = "";
+                        Random r = new Random();
+                        text = lines.get(r.nextInt(lines.size()));
+                        String[] parts = text.split(":");
+                        word = parts[0];
+                        if (CheckDifficulty(word) == 0 && numofcorrect < 4) {
+                            String scramble = ScrambleWord(word);
+                            definition = parts[1];
+                            tv_text.setText(scramble);
+                            def.setText(definition);
+                            break;
+                        } else if (CheckDifficulty(word) == 1 && numofcorrect > 3 && numofcorrect < 7) {
+                            String scramble = ScrambleWord(word);
+                            definition = parts[1];
+                            tv_text.setText(scramble);
+                            def.setText(definition);
+                            break;
+                        } else if (CheckDifficulty(word) == 2 && numofcorrect > 6) {
+                            String scramble = ScrambleWord(word);
+                            definition = parts[1];
+                            tv_text.setText(scramble);
+                            def.setText(definition);
+                            break;
+                        }
+                    }
 
 
 
@@ -108,6 +131,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                     hint2.setText(empty);
                     hint3.setText(empty);
                     numberofhints = 0;
+                    userinput.setText(empty);
                 }
 
 
@@ -148,6 +172,10 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                                     sentence = sentpart[1];
                                     break;
                                 }
+                                else if (index == sentences.size())
+                                {
+                                    break;
+                                }
                                 index++;
                             }
 
@@ -180,6 +208,10 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                                     synandant = sentpart[1];
                                     break;
                                 }
+                                else if (index == sentences.size())
+                                {
+                                    break;
+                                }
                                 index++;
                             }
 
@@ -207,11 +239,13 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                         {
                             Toast toast = Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_SHORT);
                             toast.show();
+                            numofcorrect++;
                         }
                         else if(CheckWord(word, userInput)==false)
                         {
                             Toast toast = Toast.makeText(getApplicationContext(), "Wrong! Please guess again!", Toast.LENGTH_SHORT);
                             toast.show();
+                            numofcorrect = 0;
                         }
                         return true;
 
@@ -245,15 +279,15 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
     }
 
     public int CheckDifficulty(String a) {
-        if (a.length() < 4) {
+        if (a.length() < 6) {
             //easy
             return 0;
-        } else if (a.length() > 4 && a.length() < 7) {
+        } else if (a.length() > 6 && a.length() < 9) {
             //medium
             return 1;
         } else {
             //hard
-            return 3;
+            return 2;
         }
     }
 
