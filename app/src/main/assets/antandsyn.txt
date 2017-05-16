@@ -1,0 +1,10 @@
+Game:Synonyms sport, distraction. Antonyms inactivity, work
+Simulation:Synonyms reproduction, clone. Antonyms reality, original
+Animation:Synonyms cinematography, filming. Antonyms real, still
+Music:Synonyms melody, tune. Antonyms silence, dead air
+Photoshop:Synonyms amend, correct. Antonyms damage, corrupt
+Dream:Synonyms thought, idea. Antonyms reality, concrete
+Hall of Fame:Synonyms glory, greatness. Antonyms dishonor, disapproval
+Dictionary:Synonyms glossary, vocabulary.
+SideKick:Synonyms buddy, ally. Antonyms antagonist, enemy
+Facebook:Synonyms news, media. Antonyms disconnect, stranded

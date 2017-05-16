@@ -37,15 +37,17 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
     String word = "";
     String definition = "";
+    int numofcorrect = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tts=new TextToSpeech(getApplicationContext(),new TextToSpeech.OnInitListener() {
-            public void onInit(int status)
-            {
-                if(status!=TextToSpeech.ERROR)
+        tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            public void onInit(int status) {
+                if (status != TextToSpeech.ERROR)
                     tts.setLanguage(Locale.US);
+                b_scramble.callOnClick();
             }
         });
 
@@ -65,57 +67,101 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         //word = word.toLowerCase();
         //String scrambledword = ScrambleWord(word);
         //wordtxt.setText(scrambledword);
+        final List<String> synlist = new ArrayList<String>();
 
+        try {
+            InputStream is = getAssets().open("antandsyn.txt");
+            BufferedReader reader = new BufferedReader((new InputStreamReader(is)));
+            String line = reader.readLine();
+            while (line != null) {
+                synlist.add(line);
+                line = reader.readLine();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        final List<String> sentences = new ArrayList<String>();
+        try {
+            InputStream is = getAssets().open("wordsandsentecnes.txt");
+            BufferedReader reader = new BufferedReader((new InputStreamReader(is)));
+            String line = reader.readLine();
+            while (line != null) {
+                sentences.add(line);
+                line = reader.readLine();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
 
         b_scramble.setOnClickListener(new View.OnClickListener() {
             @Override
 
-                public void onClick (View view){
-                    List<String> lines = new ArrayList<String>();
-                    String text = " ";
-                    try {
+            public void onClick(View view) {
+                List<String> lines = new ArrayList<String>();
 
 
-                        InputStream is = getAssets().open("10EnglishWithDefinition.txt");
-                        BufferedReader reader = new BufferedReader((new InputStreamReader(is)));
-                        String line = reader.readLine();
-                        while (line != null) {
-                            lines.add(line);
-                            line = reader.readLine();
-
-                        }
-                        Random r = new Random();
-                        text = lines.get(r.nextInt(lines.size()));
+                String text = " ";
+                try {
 
 
-                    } catch (IOException ex) {
+                    InputStream is = getAssets().open("10EnglishWithDefinition.txt");
+                    BufferedReader reader = new BufferedReader((new InputStreamReader(is)));
+                    String line = reader.readLine();
+                    while (line != null) {
+                        lines.add(line);
+                        line = reader.readLine();
 
-                        ex.printStackTrace();
                     }
+                    Random r = new Random();
+                    text = lines.get(r.nextInt(lines.size()));
 
+
+                } catch (IOException ex) {
+
+                    ex.printStackTrace();
+                }
+                while (true) {
+                    word = "";
+                    Random r = new Random();
+                    text = lines.get(r.nextInt(lines.size()));
                     String[] parts = text.split(":");
                     word = parts[0];
-                    String scramble = ScrambleWord(word);
-                    definition = parts[1];
-                    tv_text.setText(scramble);
-                    def.setText(definition);
-
-
-
-                    String empty = "";
-                    hintone.setText(empty);
-                    //hinttwo.setText(empty);
-                    hint2.setText(empty);
-                    hint3.setText(empty);
-                    numberofhints = 0;
+                    if (CheckDifficulty(word) == 0 && numofcorrect < 4) {
+                        String scramble = ScrambleWord(word);
+                        definition = parts[1];
+                        tv_text.setText(scramble);
+                        def.setText(definition);
+                        break;
+                    } else if (CheckDifficulty(word) == 1 && numofcorrect > 3 && numofcorrect < 7) {
+                        String scramble = ScrambleWord(word);
+                        definition = parts[1];
+                        tv_text.setText(scramble);
+                        def.setText(definition);
+                        break;
+                    } else if (CheckDifficulty(word) == 2 && numofcorrect > 6) {
+                        String scramble = ScrambleWord(word);
+                        definition = parts[1];
+                        tv_text.setText(scramble);
+                        def.setText(definition);
+                        break;
+                    }
                 }
+
+
+                String empty = "";
+                hintone.setText(empty);
+                //hinttwo.setText(empty);
+                hint2.setText(empty);
+                hint3.setText(empty);
+                numberofhints = 0;
+                userinput.setText(empty);
+            }
 
 
         });
         hintbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 if (!word.isEmpty()) {
 
 
@@ -128,90 +174,65 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                         hintone.setText(firstLetter);
                     } else if (numberofhints == 2) {
                         //second hint sentence
-                        List<String> sentences = new ArrayList<String>();
+
                         String sentword = " ";
                         String sentence = "A dog is a man's best friend.";
-                        try {
-                            InputStream is = getAssets().open("wordsandsentecnes.txt");
-                            BufferedReader reader = new BufferedReader((new InputStreamReader(is)));
-                            String line = reader.readLine();
-                            while (line != null){
-                                sentences.add(line);
-                                line = reader.readLine();
-                            }
-                            int index = 0;
-                            while (true)
-                            {
-                                String[] sentpart = sentences.get(index).split(":");
-                                sentword = sentpart[0];
-                                if (CheckWord(word, sentword)){
-                                    sentence = sentpart[1];
-                                    break;
-                                }
-                                index++;
-                            }
 
+                        int index = 0;
+                        while (true) {
+                            String[] sentpart = sentences.get(index).split(":");
+                            sentword = sentpart[0];
+                            if (CheckWord(word, sentword)) {
+                                sentence = sentpart[1];
+                                break;
+                            } else if (index == sentences.size()) {
+                                break;
+                            }
+                            index++;
                         }
-                        catch (IOException ex){
-                            ex.printStackTrace();
-                        }
-
                         //hinttwo.setText(sentence);
                         hint2.setText(sentence);
+
+
                     } else if (numberofhints == 3) {
                         //third hint syn and ant
                         String synandant = "pup, doggo, doggy, puppo, puppy";
-                        List<String> sentences = new ArrayList<String>();
                         String synword = " ";
-                        try {
-                            InputStream is = getAssets().open("antandsyn.txt");
-                            BufferedReader reader = new BufferedReader((new InputStreamReader(is)));
-                            String line = reader.readLine();
-                            while (line != null){
-                                sentences.add(line);
-                                line = reader.readLine();
+                        int index = 0;
+                        while (true) {
+                            String[] sentpart = synlist.get(index).split(":");
+                            synword = sentpart[0];
+                            if (CheckWord(word, synword)) {
+                                synandant = sentpart[1];
+                                break;
+                            } else if (index == synlist.size()) {
+                                break;
                             }
-                            int index = 0;
-                            while (true)
-                            {
-                                String[] sentpart = sentences.get(index).split(":");
-                                synword = sentpart[0];
-                                if (CheckWord(word, synword)){
-                                    synandant = sentpart[1];
-                                    break;
-                                }
-                                index++;
-                            }
+                            index++;
+                        }
 
-                        }
-                        catch (IOException ex){
-                            ex.printStackTrace();
-                        }
+
                         hint3.setText(synandant);
                     }
                 }
             }
         });
 
-        userinput.setOnKeyListener(new View.OnKeyListener()
-        {
-            public boolean onKey(View v, int keyCode, KeyEvent event)
-            {
-                if (event.getAction() == KeyEvent.ACTION_DOWN)
-                {
+        userinput.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
 
-                    if(keyCode==KeyEvent.KEYCODE_ENTER)
-                    {
-                        String userInput=userinput.getText().toString();
-                        if (CheckWord(word, userInput)==true)
-                        {
+                    if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                        String userInput = userinput.getText().toString();
+                        if (CheckWord(word, userInput) == true) {
                             Toast toast = Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_SHORT);
                             toast.show();
-                        }
-                        else if(CheckWord(word, userInput)==false)
-                        {
+                            numofcorrect++;
+                            b_scramble.callOnClick();
+                        } else if (CheckWord(word, userInput) == false) {
                             Toast toast = Toast.makeText(getApplicationContext(), "Wrong! Please guess again!", Toast.LENGTH_SHORT);
                             toast.show();
+                            numofcorrect = 0;
                         }
                         return true;
 
@@ -245,15 +266,15 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
     }
 
     public int CheckDifficulty(String a) {
-        if (a.length() < 4) {
+        if (a.length() < 6) {
             //easy
             return 0;
-        } else if (a.length() > 4 && a.length() < 7) {
+        } else if (a.length() > 6 && a.length() < 9) {
             //medium
             return 1;
         } else {
             //hard
-            return 3;
+            return 2;
         }
     }
 
@@ -267,10 +288,9 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
             return false;
     }
 
-    public void speakOut(View view)
-    {
-        String string=word;
-        tts.speak(string,TextToSpeech.QUEUE_FLUSH,null,null);
+    public void speakOut(View view) {
+        String string = word;
+        tts.speak(string, TextToSpeech.QUEUE_FLUSH, null, null);
     }
 
 
