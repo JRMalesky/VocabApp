@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -216,11 +217,13 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                         String userInput = userinput.getText().toString();
                         if (CheckWord(word, userInput) == true) {
                             Toast toast = Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                             toast.show();
                             numofcorrect++;
                             b_scramble.callOnClick();
                         } else if (CheckWord(word, userInput) == false) {
                             Toast toast = Toast.makeText(getApplicationContext(), "Wrong! Please guess again!", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                             toast.show();
                             String empty = "";
                             userinput.setText(empty);
