@@ -192,8 +192,6 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                         }
                         //hinttwo.setText(sentence);
                         hint2.setText(sentence);
-
-
                     } else if (numberofhints == 3) {
                         //third hint syn and ant
                         String synandant = "pup, doggo, doggy, puppo, puppy";
@@ -210,8 +208,6 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                             }
                             index++;
                         }
-
-
                         hint3.setText(synandant);
                     }
                 }
@@ -232,6 +228,8 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                         } else if (CheckWord(word, userInput) == false) {
                             Toast toast = Toast.makeText(getApplicationContext(), "Wrong! Please guess again!", Toast.LENGTH_SHORT);
                             toast.show();
+                            String empty = "";
+                            userinput.setText(empty);
                             numofcorrect = 0;
                         }
                         return true;
@@ -282,10 +280,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
         a = a.toLowerCase();
         b = b.toLowerCase();
-        if (a.equals(b))
-            return true;
-        else
-            return false;
+       return a.equals(b);
     }
 
     public void speakOut(View view) {
