@@ -15,5 +15,5 @@ Storytelling:The activity of telling or writing stories.
 Director:A person who is in charge of an activity, department, or organization.
 Debug:Identify and remove errors from computer hardware or software.
 Duplicate:Exactly like something else, especially through having been copied.
-Dimention:A measurable extent of some kind, such as length, breadth, depth, or height.
+Dimension:A measurable extent of some kind, such as length, breadth, depth, or height.
 Object:A material thing that can be seen and touched.

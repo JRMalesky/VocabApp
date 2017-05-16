@@ -8,3 +8,12 @@ Hall of Fame:Synonyms glory, greatness. Antonyms dishonor, disapproval
 Dictionary:Synonyms glossary, vocabulary.
 SideKick:Synonyms buddy, ally. Antonyms antagonist, enemy
 Facebook:Synonyms news, media. Antonyms disconnect, stranded
+Advertisement:Synonyms announcement, commercial. Antonyms hiding
+League of Legends:Synonyms MOBA. Antonyms life
+Halloween:Synonyms 31st of October, witchcraft.
+Storytelling:Synonyms poet, narrator. Antonyms liar
+Director:Synonyms administrator, chief. Antonyms employee worker
+Debug:Synonyms unscramble, fix. Antoyms break, destroy
+Duplicate:Synonyms clone, copy. Antonyms original
+Dimension:Synonyms aspect, element. Antonyms unimportance, insignificance
+Object:Synonyms item, body. Antonyms nothing, nothingness
