@@ -167,4 +167,12 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="55dp"
         android:onClick="speakOut"/>
+
+    <TextView
+        android:id="@+id/txtviewscore"
+        android:layout_width="117dp"
+        android:layout_height="39dp"
+        android:text="Score:"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
 </android.support.constraint.ConstraintLayout>

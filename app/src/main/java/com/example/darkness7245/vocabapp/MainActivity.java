@@ -27,7 +27,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity { //implements TextToSpeech.OnInitListener
 
-    TextView tv_text, def, hint2, hint3;
+    TextView tv_text, def, hint2, hint3, txtscore;
     Button b_scramble;
     Button b_s;
     EditText hintone, wordtxt, userinput;
@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
     String word = "";
     String definition = "";
     int numofcorrect = 0;
+    int score = 0;
+    int numofwrong = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         def = (TextView) findViewById(R.id.txtviewdef);
         hint2 = (TextView) findViewById(R.id.txtviewhint2);
         hint3 = (TextView) findViewById(R.id.txtview3rdhint);
+        txtscore = (TextView) findViewById(R.id.txtviewscore);
         //word = word.toLowerCase();
         //String scrambledword = ScrambleWord(word);
         //wordtxt.setText(scrambledword);
@@ -126,6 +129,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                     text = lines.get(r.nextInt(lines.size()));
                     String[] parts = text.split(":");
                     word = parts[0];
+                    word = word.toLowerCase();
                     if (CheckDifficulty(word) == 0 && numofcorrect < 4) {
                         String scramble = ScrambleWord(word);
                         definition = parts[1];
@@ -223,6 +227,8 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                             t.setTextColor(Color.GREEN);
                             toast.show();
                             numofcorrect++;
+                            AddScore(word);
+                            txtscore.setText("Score: " + score);
                             b_scramble.callOnClick();
                         } else if (CheckWord(word, userInput) == false) {
                             Toast toast = Toast.makeText(getApplicationContext(), "Wrong! Please guess again!", Toast.LENGTH_SHORT);
@@ -233,6 +239,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                             String empty = "";
                             userinput.setText(empty);
                             numofcorrect = 0;
+                            numofwrong++;
                         }
                         return true;
                     }
@@ -288,6 +295,23 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         String string = word;
         tts.speak(string, TextToSpeech.QUEUE_FLUSH, null, null);
     }
+    public void AddScore(String _string)
+    {
+        if (CheckDifficulty(_string) == 0)
+        {
+            score = score + 100;
+        }
+        else if (CheckDifficulty(_string) == 1)
+        {
+            score = score + 200;
+        }
+        else if(CheckDifficulty(_string) == 2)
+        {
+            score = score + 300;
+        }
+
+    }
+
 
 
         /*tts = new TextToSpeech(this, this);
