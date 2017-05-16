@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         //word = word.toLowerCase();
         //String scrambledword = ScrambleWord(word);
         //wordtxt.setText(scrambledword);
-        final List<String> synlist = new ArrayList<String>();
+        final List<String> synlist = new ArrayList<>();
 
         try {
             InputStream is = getAssets().open("antandsyn.txt");
@@ -102,8 +102,6 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
                 String text = " ";
                 try {
-
-
                     InputStream is = getAssets().open("10EnglishWithDefinition.txt");
                     BufferedReader reader = new BufferedReader((new InputStreamReader(is)));
                     String line = reader.readLine();
@@ -146,8 +144,6 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                         break;
                     }
                 }
-
-
                 String empty = "";
                 hintone.setText(empty);
                 //hinttwo.setText(empty);
@@ -163,8 +159,6 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
             @Override
             public void onClick(View v) {
                 if (!word.isEmpty()) {
-
-
                     if (numberofhints < 4) {
                         numberofhints++;
                     }
@@ -233,7 +227,6 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                             numofcorrect = 0;
                         }
                         return true;
-
                     }
                 }
                 return false;
@@ -264,7 +257,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
     }
 
     public int CheckDifficulty(String a) {
-        if (a.length() < 6) {
+        if (a.length() <= 6) {
             //easy
             return 0;
         } else if (a.length() > 6 && a.length() < 9) {
