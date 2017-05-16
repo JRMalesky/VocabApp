@@ -1,5 +1,6 @@
 package com.example.darkness7245.vocabapp;
 
+import android.graphics.Color;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -218,12 +219,16 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                         if (CheckWord(word, userInput) == true) {
                             Toast toast = Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                            TextView t = (TextView) toast.getView().findViewById(android.R.id.message);
+                            t.setTextColor(Color.GREEN);
                             toast.show();
                             numofcorrect++;
                             b_scramble.callOnClick();
                         } else if (CheckWord(word, userInput) == false) {
                             Toast toast = Toast.makeText(getApplicationContext(), "Wrong! Please guess again!", Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                            TextView b = (TextView) toast.getView().findViewById(android.R.id.message);
+                            b.setTextColor(Color.RED);
                             toast.show();
                             String empty = "";
                             userinput.setText(empty);
