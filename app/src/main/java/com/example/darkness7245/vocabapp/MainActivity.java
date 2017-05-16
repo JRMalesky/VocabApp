@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
             public void onInit(int status) {
                 if (status != TextToSpeech.ERROR)
                     tts.setLanguage(Locale.US);
+                b_scramble.callOnClick();
             }
         });
 
