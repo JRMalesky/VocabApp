@@ -227,6 +227,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                             Toast toast = Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_SHORT);
                             toast.show();
                             numofcorrect++;
+                            b_scramble.callOnClick();
                         } else if (CheckWord(word, userInput) == false) {
                             Toast toast = Toast.makeText(getApplicationContext(), "Wrong! Please guess again!", Toast.LENGTH_SHORT);
                             toast.show();
