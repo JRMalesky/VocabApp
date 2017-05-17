@@ -15,10 +15,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -123,33 +125,8 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
                     ex.printStackTrace();
                 }
-                while (true) {
-                    word = "";
-                    Random r = new Random();
-                    text = lines.get(r.nextInt(lines.size()));
-                    String[] parts = text.split(":");
-                    word = parts[0];
-                    word = word.toLowerCase();
-                    if (CheckDifficulty(word) == 0 && numofcorrect < 4) {
-                        String scramble = ScrambleWord(word);
-                        definition = parts[1];
-                        tv_text.setText(scramble);
-                        def.setText(definition);
-                        break;
-                    } else if (CheckDifficulty(word) == 1 && numofcorrect > 3 && numofcorrect < 7) {
-                        String scramble = ScrambleWord(word);
-                        definition = parts[1];
-                        tv_text.setText(scramble);
-                        def.setText(definition);
-                        break;
-                    } else if (CheckDifficulty(word) == 2 && numofcorrect > 6) {
-                        String scramble = ScrambleWord(word);
-                        definition = parts[1];
-                        tv_text.setText(scramble);
-                        def.setText(definition);
-                        break;
-                    }
-                }
+                 Random_Difficulty(lines);
+               //Streak_Difficulty(lines);
                 String empty = "";
                 hintone.setText(empty);
                 //hinttwo.setText(empty);
@@ -240,6 +217,15 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                             userinput.setText(empty);
                             numofcorrect = 0;
                             numofwrong++;
+                            if (numofwrong > 3)
+                            {
+                                Toast endgametoast= Toast.makeText(getApplicationContext(), "Game over!", Toast.LENGTH_LONG);
+                                TextView g = (TextView) toast.getView().findViewById(android.R.id.message);
+                                g.setTextColor(Color.RED);
+                                endgametoast.show();
+                                score = 0;
+                                txtscore.setText("Score:");
+                            }
                         }
                         return true;
                     }
@@ -251,10 +237,51 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
     }
 
-    public int Random_Difficulty() {
-        Random rand = new Random();
-        return rand.nextInt(3);
+    public void Random_Difficulty(List<String> lines) {
+        word = "";
+        String text = "";
+        Random r = new Random();
+        text = lines.get(r.nextInt(lines.size()));
+        String[] parts = text.split(":");
+        word = parts[0];
+        word = word.toLowerCase();
+        String scramble = ScrambleWord(word);
+        definition = parts[1];
+        tv_text.setText(scramble);
+        def.setText(definition);
     }
+    public void Streak_Difficulty(List<String> lines)
+    {
+        String text = "";
+        while (true) {
+            word = "";
+            Random r = new Random();
+            text = lines.get(r.nextInt(lines.size()));
+            String[] parts = text.split(":");
+            word = parts[0];
+            word = word.toLowerCase();
+            if (CheckDifficulty(word) == 0 && numofcorrect < 4) {
+                String scramble = ScrambleWord(word);
+                definition = parts[1];
+                tv_text.setText(scramble);
+                def.setText(definition);
+                break;
+            } else if (CheckDifficulty(word) == 1 && numofcorrect > 3 && numofcorrect < 7) {
+                String scramble = ScrambleWord(word);
+                definition = parts[1];
+                tv_text.setText(scramble);
+                def.setText(definition);
+                break;
+            } else if (CheckDifficulty(word) == 2 && numofcorrect > 6) {
+                String scramble = ScrambleWord(word);
+                definition = parts[1];
+                tv_text.setText(scramble);
+                def.setText(definition);
+                break;
+            }
+        }
+    }
+
 
     public String ScrambleWord(String _string) {
         Random rand = new Random();
@@ -299,15 +326,15 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
     {
         if (CheckDifficulty(_string) == 0)
         {
-            score = score + 100;
+            score = score + 200;
         }
         else if (CheckDifficulty(_string) == 1)
         {
-            score = score + 200;
+            score = score + 400;
         }
         else if(CheckDifficulty(_string) == 2)
         {
-            score = score + 300;
+            score = score + 800;
         }
 
     }
