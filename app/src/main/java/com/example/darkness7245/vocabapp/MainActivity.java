@@ -1,5 +1,6 @@
 package com.example.darkness7245.vocabapp;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,6 +49,21 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
     int score = 0;
     int numofwrong = 0;
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.popup_menu, menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.settings:
+                return true;
+            case R.id.help:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +75,10 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 b_scramble.callOnClick();
             }
         });
+
+
+
+
 
         hintone = (EditText) findViewById(R.id.txthintone);
         //hinttwo = (EditText) findViewById(R.id.txthinetwo);
@@ -125,8 +148,8 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
                     ex.printStackTrace();
                 }
-                 Random_Difficulty(lines);
-               //Streak_Difficulty(lines);
+                //Random_Difficulty(lines);
+                Streak_Difficulty(lines);
                 String empty = "";
                 hintone.setText(empty);
                 //hinttwo.setText(empty);
@@ -217,9 +240,8 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                             userinput.setText(empty);
                             numofcorrect = 0;
                             numofwrong++;
-                            if (numofwrong > 3)
-                            {
-                                Toast endgametoast= Toast.makeText(getApplicationContext(), "Game over!", Toast.LENGTH_LONG);
+                            if (numofwrong > 3) {
+                                Toast endgametoast = Toast.makeText(getApplicationContext(), "Game over!", Toast.LENGTH_SHORT);
                                 TextView g = (TextView) toast.getView().findViewById(android.R.id.message);
                                 g.setTextColor(Color.RED);
                                 endgametoast.show();
@@ -250,8 +272,9 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         tv_text.setText(scramble);
         def.setText(definition);
     }
-    public void Streak_Difficulty(List<String> lines)
-    {
+
+    //the more you get correct in a row the harder it gets
+    public void Streak_Difficulty(List<String> lines) {
         String text = "";
         while (true) {
             word = "";
@@ -315,25 +338,20 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
         a = a.toLowerCase();
         b = b.toLowerCase();
-       return a.equals(b);
+        return a.equals(b);
     }
 
     public void speakOut(View view) {
         String string = word;
         tts.speak(string, TextToSpeech.QUEUE_FLUSH, null, null);
     }
-    public void AddScore(String _string)
-    {
-        if (CheckDifficulty(_string) == 0)
-        {
+
+    public void AddScore(String _string) {
+        if (CheckDifficulty(_string) == 0) {
             score = score + 200;
-        }
-        else if (CheckDifficulty(_string) == 1)
-        {
+        } else if (CheckDifficulty(_string) == 1) {
             score = score + 400;
-        }
-        else if(CheckDifficulty(_string) == 2)
-        {
+        } else if (CheckDifficulty(_string) == 2) {
             score = score + 800;
         }
 
