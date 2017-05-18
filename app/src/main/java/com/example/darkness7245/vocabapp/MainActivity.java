@@ -35,7 +35,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity { //implements TextToSpeech.OnInitListener
 
-    TextView tv_text, def, hint2, hint3, txtscore;
+    TextView tv_text, def, hint2, hint3, txtscore, txthighscore;
     Button b_scramble;
     Button b_s;
     EditText hintone, wordtxt, userinput;
@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 if (status != TextToSpeech.ERROR)
                     tts.setLanguage(Locale.US);
                 b_scramble.callOnClick();
+                LoadScores();
             }
         });
 
@@ -125,6 +126,8 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         hint2 = (TextView) findViewById(R.id.txtviewhint2);
         hint3 = (TextView) findViewById(R.id.txtview3rdhint);
         txtscore = (TextView) findViewById(R.id.txtviewscore);
+        txthighscore = (TextView) findViewById(R.id.txthighscores);
+
         //word = word.toLowerCase();
         //String scrambledword = ScrambleWord(word);
         //wordtxt.setText(scrambledword);
@@ -501,9 +504,9 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
             while (line != null) {
                 put = line;
                 line = reader.readLine();
+                txthighscore.setText("HighScores: " + put);
             }
             reader.close();
-            Toast.makeText(getBaseContext(), put,Toast.LENGTH_SHORT).show();
 
 
         } catch (Exception e) {

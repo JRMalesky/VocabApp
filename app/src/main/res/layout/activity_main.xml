@@ -177,6 +177,16 @@
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="16dp" />
 
+    <TextView
+        android:id="@+id/txthighscores"
+        android:layout_width="161dp"
+        android:layout_height="49dp"
+        android:text="Highscores: "
+        android:layout_marginRight="30dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="-6dp" />
+
 
 </android.support.constraint.ConstraintLayout>
 
