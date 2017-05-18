@@ -164,11 +164,28 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
                     ex.printStackTrace();
                 }
+                //easy
+                if (diff == 0)
+                {
+                    Easy_Difficulty(lines);
+                }
+                //medium
+                if (diff == 1)
+                {
+                    Med_Difficulty(lines);
+                }
+                //hard
+                if (diff == 2)
+                {
+                    Hard_Difficulty(lines);
+                }
+                //random
                 if (diff == 3)
                 {
                     Random_Difficulty(lines);
 
                 }
+                //streak
                 if (diff == 4)
                 {
                     Streak_Difficulty(lines);
@@ -328,6 +345,69 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         }
     }
 
+    public void Easy_Difficulty(List<String> lines)
+    {
+        String text = "";
+        while (true)
+        {
+            word = "";
+            Random r = new Random();
+            text = lines.get(r.nextInt(lines.size()));
+            String[] parts = text.split(":");
+            word = parts[0];
+            word = word.toLowerCase();
+            if(CheckDifficulty(word) == 0)
+            {
+                String scramble = ScrambleWord(word);
+                definition = parts[1];
+                tv_text.setText(scramble);
+                def.setText(definition);
+                break;
+            }
+        }
+    }
+    public void Med_Difficulty(List<String> lines)
+    {
+        String text = "";
+        while (true)
+        {
+            word = "";
+            Random r = new Random();
+            text = lines.get(r.nextInt(lines.size()));
+            String[] parts = text.split(":");
+            word = parts[0];
+            word = word.toLowerCase();
+            if(CheckDifficulty(word) == 1)
+            {
+                String scramble = ScrambleWord(word);
+                definition = parts[1];
+                tv_text.setText(scramble);
+                def.setText(definition);
+                break;
+            }
+        }
+    }
+    public void Hard_Difficulty(List<String> lines)
+    {
+        String text = "";
+        while (true)
+        {
+            word = "";
+            Random r = new Random();
+            text = lines.get(r.nextInt(lines.size()));
+            String[] parts = text.split(":");
+            word = parts[0];
+            word = word.toLowerCase();
+            if(CheckDifficulty(word) == 2)
+            {
+                String scramble = ScrambleWord(word);
+                definition = parts[1];
+                tv_text.setText(scramble);
+                def.setText(definition);
+                break;
+            }
+        }
+    }
 
     public String ScrambleWord(String _string) {
         Random rand = new Random();
