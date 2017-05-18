@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
     int numofcorrect = 0;
     int score = 0;
     int numofwrong = 0;
+    int diff = 3;
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -57,6 +58,21 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings:
+                return true;
+            case R.id.easy:
+                diff = 0;
+                return true;
+            case R.id.med:
+                diff = 1;
+                return true;
+            case R.id.hard:
+                diff = 2;
+                return true;
+            case R.id.random:
+                diff = 3;
+                return true;
+            case R.id.streak:
+                diff = 4;
                 return true;
             case R.id.help:
                 return true;
@@ -148,8 +164,15 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
                     ex.printStackTrace();
                 }
-                //Random_Difficulty(lines);
-                Streak_Difficulty(lines);
+                if (diff == 3)
+                {
+                    Random_Difficulty(lines);
+
+                }
+                if (diff == 4)
+                {
+                    Streak_Difficulty(lines);
+                }
                 String empty = "";
                 hintone.setText(empty);
                 //hinttwo.setText(empty);
