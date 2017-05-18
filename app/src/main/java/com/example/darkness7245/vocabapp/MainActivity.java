@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
     int score = 0;
     int numofwrong = 0;
     int diff = 3;
+    int scoretosave = 0;
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -63,23 +64,29 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 return true;
             case R.id.easy:
                 diff = 0;
+                b_scramble.callOnClick();
                 return true;
             case R.id.med:
                 diff = 1;
+                b_scramble.callOnClick();
                 return true;
             case R.id.hard:
                 diff = 2;
+                b_scramble.callOnClick();
                 return true;
             case R.id.random:
                 diff = 3;
+                b_scramble.callOnClick();
                 return true;
             case R.id.streak:
                 diff = 4;
+                b_scramble.callOnClick();
                 return true;
             case R.id.help:
                 return true;
             case R.id.save:
-                SaveScores();
+                scoretosave = score;
+                SaveScores(scoretosave);
                 return true;
             case R.id.load:
                 LoadScores();
@@ -166,8 +173,6 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                     }
                     Random r = new Random();
                     text = lines.get(r.nextInt(lines.size()));
-
-
                 } catch (IOException ex) {
 
                     ex.printStackTrace();
@@ -292,6 +297,8 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                                 TextView g = (TextView) toast.getView().findViewById(android.R.id.message);
                                 g.setTextColor(Color.RED);
                                 endgametoast.show();
+                                scoretosave = score;
+                                SaveScores(scoretosave);
                                 score = 0;
                                 txtscore.setText("Score:");
                             }
@@ -467,14 +474,13 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
     }
 
-    public void SaveScores() {
-
-
+    public void SaveScores(int _score) {
         // add-write text into file
         try {
-            FileOutputStream fileout=openFileOutput("scores.txt", MODE_PRIVATE);
-            OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
-            outputWriter.write("Test");
+            String s = String.valueOf(_score);
+            FileOutputStream fileout = openFileOutput("scores.txt", MODE_PRIVATE);
+            OutputStreamWriter outputWriter = new OutputStreamWriter(fileout);
+            outputWriter.write(s);
             outputWriter.close();
 
             //display file saved message
@@ -488,20 +494,17 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
     public void LoadScores() {
         //reading text from file
         try {
-            FileInputStream fileIn=openFileInput("scores.txt");
-            InputStreamReader InputRead= new InputStreamReader(fileIn);
-
-            char[] inputBuffer= new char[256];
-            String s="";
-            int charRead;
-
-            while ((charRead=InputRead.read(inputBuffer))>0) {
-                // char to string conversion
-                String readstring=String.copyValueOf(inputBuffer,0,charRead);
-                s +=readstring;
+            String put = "";
+            InputStream in = openFileInput("scores.txt");
+            BufferedReader reader = new BufferedReader((new InputStreamReader(in)));
+            String line = reader.readLine();
+            while (line != null) {
+                put = line;
+                line = reader.readLine();
             }
-            InputRead.close();
-            Toast.makeText(getBaseContext(), s,Toast.LENGTH_SHORT).show();
+            reader.close();
+            Toast.makeText(getBaseContext(), put,Toast.LENGTH_SHORT).show();
+
 
         } catch (Exception e) {
             e.printStackTrace();
