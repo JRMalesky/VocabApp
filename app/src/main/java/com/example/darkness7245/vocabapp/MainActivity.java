@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -75,6 +77,12 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 diff = 4;
                 return true;
             case R.id.help:
+                return true;
+            case R.id.save:
+                SaveScores();
+                return true;
+            case R.id.load:
+                LoadScores();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -183,7 +191,6 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 if (diff == 3)
                 {
                     Random_Difficulty(lines);
-
                 }
                 //streak
                 if (diff == 4)
@@ -298,7 +305,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         });
 
     }
-
+    //gets a random word to display to the user
     public void Random_Difficulty(List<String> lines) {
         word = "";
         String text = "";
@@ -460,7 +467,46 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
     }
 
+    public void SaveScores() {
 
+
+        // add-write text into file
+        try {
+            FileOutputStream fileout=openFileOutput("scores.txt", MODE_PRIVATE);
+            OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
+            outputWriter.write("Test");
+            outputWriter.close();
+
+            //display file saved message
+            Toast.makeText(getBaseContext(), "File saved successfully!",
+                    Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void LoadScores() {
+        //reading text from file
+        try {
+            FileInputStream fileIn=openFileInput("scores.txt");
+            InputStreamReader InputRead= new InputStreamReader(fileIn);
+
+            char[] inputBuffer= new char[256];
+            String s="";
+            int charRead;
+
+            while ((charRead=InputRead.read(inputBuffer))>0) {
+                // char to string conversion
+                String readstring=String.copyValueOf(inputBuffer,0,charRead);
+                s +=readstring;
+            }
+            InputRead.close();
+            Toast.makeText(getBaseContext(), s,Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
         /*tts = new TextToSpeech(this, this);
 
