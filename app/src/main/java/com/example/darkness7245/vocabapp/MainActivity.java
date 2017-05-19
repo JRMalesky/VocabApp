@@ -297,7 +297,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                         } else if (CheckWord(word, userInput) == false) {
                             triesleft--;
                             if(triesleft > 1) {
-                                Toast toast = Toast.makeText(getApplicationContext(), "Wrong! You have " + triesleft + " tries left" + " Please guess again!", Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Wrong! You have " + triesleft + " lives left" + ". Please guess again!", Toast.LENGTH_SHORT);
                                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                                 TextView b = (TextView) toast.getView().findViewById(android.R.id.message);
                                 b.setTextColor(Color.RED);
@@ -305,7 +305,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                             }
                             else if (triesleft == 1)
                             {
-                                Toast toast = Toast.makeText(getApplicationContext(), "Wrong! You have " + triesleft + " try left" + " Please guess again!", Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Wrong! You have " + triesleft + " life left" + ". Please guess again!", Toast.LENGTH_SHORT);
                                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                                 TextView b = (TextView) toast.getView().findViewById(android.R.id.message);
                                 b.setTextColor(Color.RED);
