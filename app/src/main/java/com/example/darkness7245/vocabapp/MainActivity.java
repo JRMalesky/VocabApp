@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
     int numofwrong = 0;
     int diff = 3;
     int scoretosave = 0;
+    int HighScore = 0;
+    int triesleft = 4;
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -85,8 +87,15 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
             case R.id.help:
                 return true;
             case R.id.save:
-                scoretosave = score;
-                SaveScores(scoretosave);
+                if (score > HighScore)
+                {
+                    HighScore = score;
+                    scoretosave = score;
+                    SaveScores(scoretosave);
+                }
+                else
+                    Toast.makeText(getBaseContext(), "Your score did not beat the Highscore", Toast.LENGTH_SHORT).show();
+
                 return true;
             case R.id.load:
                 LoadScores();
@@ -286,22 +295,40 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                             txtscore.setText("Score: " + score);
                             b_scramble.callOnClick();
                         } else if (CheckWord(word, userInput) == false) {
-                            Toast toast = Toast.makeText(getApplicationContext(), "Wrong! Please guess again!", Toast.LENGTH_SHORT);
-                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                            TextView b = (TextView) toast.getView().findViewById(android.R.id.message);
-                            b.setTextColor(Color.RED);
-                            toast.show();
+                            triesleft--;
+                            if(triesleft > 1) {
+                                Toast toast = Toast.makeText(getApplicationContext(), "Wrong! You have " + triesleft + " tries left" + " Please guess again!", Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                                TextView b = (TextView) toast.getView().findViewById(android.R.id.message);
+                                b.setTextColor(Color.RED);
+                                toast.show();
+                            }
+                            else if (triesleft == 1)
+                            {
+                                Toast toast = Toast.makeText(getApplicationContext(), "Wrong! You have " + triesleft + " try left" + " Please guess again!", Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                                TextView b = (TextView) toast.getView().findViewById(android.R.id.message);
+                                b.setTextColor(Color.RED);
+                                toast.show();
+                            }
                             String empty = "";
                             userinput.setText(empty);
                             numofcorrect = 0;
                             numofwrong++;
                             if (numofwrong > 3) {
                                 Toast endgametoast = Toast.makeText(getApplicationContext(), "Game over!", Toast.LENGTH_SHORT);
-                                TextView g = (TextView) toast.getView().findViewById(android.R.id.message);
+                                TextView g = (TextView) endgametoast.getView().findViewById(android.R.id.message);
                                 g.setTextColor(Color.RED);
                                 endgametoast.show();
-                                scoretosave = score;
-                                SaveScores(scoretosave);
+                                if (score > HighScore) {
+                                    Toast.makeText(getBaseContext(), "Congratulations you beat your Highscore!", Toast.LENGTH_SHORT).show();
+                                    HighScore = score;
+                                    scoretosave = score;
+                                    SaveScores(scoretosave);
+                                    LoadScores();
+                                }
+                                triesleft = 4;
+                                numofwrong = 0;
                                 score = 0;
                                 txtscore.setText("Score:");
                             }
@@ -487,7 +514,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
             outputWriter.close();
 
             //display file saved message
-            Toast.makeText(getBaseContext(), "File saved successfully!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "Score saved successfully!", Toast.LENGTH_SHORT).show();
 
         } catch (Exception e) {
             e.printStackTrace();
