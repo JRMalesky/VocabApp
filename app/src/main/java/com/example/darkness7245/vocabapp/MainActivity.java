@@ -487,8 +487,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
             outputWriter.close();
 
             //display file saved message
-            Toast.makeText(getBaseContext(), "File saved successfully!",
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "File saved successfully!", Toast.LENGTH_SHORT).show();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -504,7 +503,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
             while (line != null) {
                 put = line;
                 line = reader.readLine();
-                txthighscore.setText("HighScores: " + put);
+                txthighscore.setText("Highscore: " + put);
             }
             reader.close();
 
