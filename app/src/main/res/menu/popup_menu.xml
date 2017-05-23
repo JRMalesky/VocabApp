@@ -22,6 +22,12 @@
             <item
                 android:id="@+id/streak"
                 android:title="Streak Difficulty"/>
+            <item
+                android:id="@+id/save"
+                android:title="Save scores"/>
+            <item
+                android:id="@+id/load"
+                android:title="Load scores"/>
         </menu>
     </item>
     <item android:id="@+id/help"

@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -33,7 +35,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity { //implements TextToSpeech.OnInitListener
 
-    TextView tv_text, def, hint2, hint3, txtscore;
+    TextView tv_text, def, hint2, hint3, txtscore, txthighscore;
     Button b_scramble;
     Button b_s;
     EditText hintone, wordtxt, userinput;
@@ -49,6 +51,9 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
     int score = 0;
     int numofwrong = 0;
     int diff = 3;
+    int scoretosave = 0;
+    int HighScore = 0;
+    int triesleft = 4;
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -61,20 +66,39 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 return true;
             case R.id.easy:
                 diff = 0;
+                b_scramble.callOnClick();
                 return true;
             case R.id.med:
                 diff = 1;
+                b_scramble.callOnClick();
                 return true;
             case R.id.hard:
                 diff = 2;
+                b_scramble.callOnClick();
                 return true;
             case R.id.random:
                 diff = 3;
+                b_scramble.callOnClick();
                 return true;
             case R.id.streak:
                 diff = 4;
+                b_scramble.callOnClick();
                 return true;
             case R.id.help:
+                return true;
+            case R.id.save:
+                if (score > HighScore)
+                {
+                    HighScore = score;
+                    scoretosave = score;
+                    SaveScores(scoretosave);
+                }
+                else
+                    Toast.makeText(getBaseContext(), "Your score did not beat the Highscore", Toast.LENGTH_SHORT).show();
+
+                return true;
+            case R.id.load:
+                LoadScores();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -89,6 +113,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 if (status != TextToSpeech.ERROR)
                     tts.setLanguage(Locale.US);
                 b_scramble.callOnClick();
+                LoadScores();
             }
         });
 
@@ -110,6 +135,8 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         hint2 = (TextView) findViewById(R.id.txtviewhint2);
         hint3 = (TextView) findViewById(R.id.txtview3rdhint);
         txtscore = (TextView) findViewById(R.id.txtviewscore);
+        txthighscore = (TextView) findViewById(R.id.txthighscores);
+
         //word = word.toLowerCase();
         //String scrambledword = ScrambleWord(word);
         //wordtxt.setText(scrambledword);
@@ -158,8 +185,6 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                     }
                     Random r = new Random();
                     text = lines.get(r.nextInt(lines.size()));
-
-
                 } catch (IOException ex) {
 
                     ex.printStackTrace();
@@ -183,7 +208,6 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 if (diff == 3)
                 {
                     Random_Difficulty(lines);
-
                 }
                 //streak
                 if (diff == 4)
@@ -271,20 +295,40 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                             txtscore.setText("Score: " + score);
                             b_scramble.callOnClick();
                         } else if (CheckWord(word, userInput) == false) {
-                            Toast toast = Toast.makeText(getApplicationContext(), "Wrong! Please guess again!", Toast.LENGTH_SHORT);
-                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                            TextView b = (TextView) toast.getView().findViewById(android.R.id.message);
-                            b.setTextColor(Color.RED);
-                            toast.show();
+                            triesleft--;
+                            if(triesleft > 1) {
+                                Toast toast = Toast.makeText(getApplicationContext(), "Wrong! You have " + triesleft + " tries left" + " Please guess again!", Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                                TextView b = (TextView) toast.getView().findViewById(android.R.id.message);
+                                b.setTextColor(Color.RED);
+                                toast.show();
+                            }
+                            else if (triesleft == 1)
+                            {
+                                Toast toast = Toast.makeText(getApplicationContext(), "Wrong! You have " + triesleft + " try left" + " Please guess again!", Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                                TextView b = (TextView) toast.getView().findViewById(android.R.id.message);
+                                b.setTextColor(Color.RED);
+                                toast.show();
+                            }
                             String empty = "";
                             userinput.setText(empty);
                             numofcorrect = 0;
                             numofwrong++;
                             if (numofwrong > 3) {
                                 Toast endgametoast = Toast.makeText(getApplicationContext(), "Game over!", Toast.LENGTH_SHORT);
-                                TextView g = (TextView) toast.getView().findViewById(android.R.id.message);
+                                TextView g = (TextView) endgametoast.getView().findViewById(android.R.id.message);
                                 g.setTextColor(Color.RED);
                                 endgametoast.show();
+                                if (score > HighScore) {
+                                    Toast.makeText(getBaseContext(), "Congratulations you beat your Highscore!", Toast.LENGTH_SHORT).show();
+                                    HighScore = score;
+                                    scoretosave = score;
+                                    SaveScores(scoretosave);
+                                    LoadScores();
+                                }
+                                triesleft = 4;
+                                numofwrong = 0;
                                 score = 0;
                                 txtscore.setText("Score:");
                             }
@@ -298,7 +342,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         });
 
     }
-
+    //gets a random word to display to the user
     public void Random_Difficulty(List<String> lines) {
         word = "";
         String text = "";
@@ -460,7 +504,41 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
     }
 
+    public void SaveScores(int _score) {
+        // add-write text into file
+        try {
+            String s = String.valueOf(_score);
+            FileOutputStream fileout = openFileOutput("scores.txt", MODE_PRIVATE);
+            OutputStreamWriter outputWriter = new OutputStreamWriter(fileout);
+            outputWriter.write(s);
+            outputWriter.close();
 
+            //display file saved message
+            Toast.makeText(getBaseContext(), "Score saved successfully!", Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void LoadScores() {
+        //reading text from file
+        try {
+            String put = "";
+            InputStream in = openFileInput("scores.txt");
+            BufferedReader reader = new BufferedReader((new InputStreamReader(in)));
+            String line = reader.readLine();
+            while (line != null) {
+                put = line;
+                line = reader.readLine();
+                txthighscore.setText("Highscore: " + put);
+            }
+            reader.close();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
         /*tts = new TextToSpeech(this, this);
 
