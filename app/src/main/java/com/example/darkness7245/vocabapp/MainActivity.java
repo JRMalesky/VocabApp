@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
     Button b_scramble;
     Button b_s;
     EditText hintone, wordtxt, userinput;
+    RadioButton easy, med, hard, streak, random;
     int numberofhints = 0;
     TextToSpeech tts;
     /*private TextToSpeech tts;
@@ -122,6 +124,12 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
 
 
+
+        easy = (RadioButton) findViewById(R.id.radeasy);
+        med = (RadioButton) findViewById(R.id.radmed);
+        hard = (RadioButton) findViewById(R.id.radhard);
+        streak = (RadioButton) findViewById(R.id.radstreak);
+        random = (RadioButton) findViewById(R.id.radrand);
 
 
         hintone = (EditText) findViewById(R.id.txthintone);

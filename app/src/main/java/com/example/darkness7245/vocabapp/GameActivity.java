@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 
 /**
  * Created by Student on 5/19/2017.
@@ -18,7 +19,8 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
 
-        Button enter_game=(Button)findViewById(R.id.enter_game);
+
+            Button enter_game=(Button)findViewById(R.id.enter_game);
         enter_game.setOnClickListener(new View.OnClickListener(){
 
             @Override
