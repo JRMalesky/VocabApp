@@ -534,8 +534,8 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
             while (line != null) {
                 put = line;
                 line = reader.readLine();
-                txthighscore.setText("Highscore: " + put);
             }
+            txthighscore.setText("Highscore: " + put);
             reader.close();
 
 
@@ -544,6 +544,8 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         }
     }
     public void ClearScore() {
+        score = 0;
+        txtscore.setText("Score: ");
         try {
             FileOutputStream fileout = openFileOutput("scores.txt", MODE_PRIVATE);
             OutputStreamWriter outputWriter = new OutputStreamWriter(fileout);
