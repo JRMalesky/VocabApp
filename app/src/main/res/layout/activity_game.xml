@@ -25,10 +25,10 @@
         android:id="@+id/RGdiff"
         android:layout_width="177dp"
         android:layout_height="163dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="6dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="28dp">
 
         <RadioButton
             android:id="@+id/radeasy"
@@ -81,11 +81,10 @@
     <RadioGroup
         android:layout_width="186dp"
         android:layout_height="164dp"
-        android:layout_marginRight="3dp"
+        android:layout_marginRight="5dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
-        tools:layout_editor_absoluteX="195dp" >
+        android:layout_marginTop="27dp">
 
         <RadioButton
             android:id="@+id/radEnglish"
@@ -99,6 +98,26 @@
             android:layout_height="wrap_content"
             android:text="Chinese" />
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/txtsetdiff"
+        android:layout_width="179dp"
+        android:layout_height="21dp"
+        android:text="Difficulty setting"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="6dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/txtsetlang"
+        android:layout_width="186dp"
+        android:layout_height="23dp"
+        android:text="Language setting"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
 
