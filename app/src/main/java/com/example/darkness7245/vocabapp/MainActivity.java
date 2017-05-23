@@ -1,8 +1,10 @@
 package com.example.darkness7245.vocabapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.speech.tts.TextToSpeech;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -354,6 +356,25 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                                     SaveScores(scoretosave);
                                     LoadScores();
                                 }
+                                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                                alertDialog.setTitle("Alert");
+                                alertDialog.setMessage("Game Over! would you like to play again?");
+                                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                b_scramble.callOnClick();
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                Intent intent = new Intent(MainActivity.this,GameActivity.class);
+                                                startActivity(intent);
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                alertDialog.show();
                                 triesleft = 4;
                                 numofwrong = 0;
                                 score = 0;

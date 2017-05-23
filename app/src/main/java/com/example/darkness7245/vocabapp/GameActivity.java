@@ -61,7 +61,7 @@ public class GameActivity extends AppCompatActivity {
             return Difficulty.RANDOM;
         }
         else
-            return Difficulty.EASY;
+            return Difficulty.RANDOM;
     }
 
 }
