@@ -24,10 +24,13 @@
                 android:title="Streak Difficulty"/>
             <item
                 android:id="@+id/save"
-                android:title="Save scores"/>
+                android:title="Save score"/>
             <item
                 android:id="@+id/load"
-                android:title="Load scores"/>
+                android:title="Load score"/>
+            <item
+                android:id="@+id/clear"
+                android:title="Clear score"/>
         </menu>
     </item>
     <item android:id="@+id/help"

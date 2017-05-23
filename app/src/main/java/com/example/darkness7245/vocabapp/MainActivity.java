@@ -100,6 +100,9 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
             case R.id.load:
                 LoadScores();
                 return true;
+            case R.id.clear:
+                ClearScore();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -519,6 +522,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         } catch (Exception e) {
             e.printStackTrace();
         }
+        LoadScores();
     }
     public void LoadScores() {
         //reading text from file
@@ -538,6 +542,20 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public void ClearScore() {
+        try {
+            FileOutputStream fileout = openFileOutput("scores.txt", MODE_PRIVATE);
+            OutputStreamWriter outputWriter = new OutputStreamWriter(fileout);
+            outputWriter.write(0);
+            outputWriter.close();
+
+            Toast.makeText(getBaseContext(), "Score cleared successfully!", Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        LoadScores();
     }
 
         /*tts = new TextToSpeech(this, this);
