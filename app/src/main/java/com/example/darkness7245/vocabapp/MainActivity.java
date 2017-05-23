@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
     Button b_scramble;
     Button b_s;
     EditText hintone, wordtxt, userinput;
-    RadioButton easy, med, hard, streak, random;
+
     int numberofhints = 0;
     TextToSpeech tts;
     /*private TextToSpeech tts;
@@ -122,15 +123,29 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
             }
         });
 
+        int exa = getIntent().getIntExtra("example", -1);
 
-
-
-        easy = (RadioButton) findViewById(R.id.radeasy);
-        med = (RadioButton) findViewById(R.id.radmed);
-        hard = (RadioButton) findViewById(R.id.radhard);
-        streak = (RadioButton) findViewById(R.id.radstreak);
-        random = (RadioButton) findViewById(R.id.radrand);
-
+        //easy = (RadioButton) findViewById(R.id.RGdiff).findViewById(R.id.radeasy);
+        if (exa == 0)
+        {
+            diff = 0;
+        }
+        else if (exa == 1)
+        {
+            diff = 1;
+        }
+        else if (exa == 2)
+        {
+            diff = 2;
+        }
+        else if (exa == 3)
+        {
+            diff = 4;
+        }
+        else if (exa == 4)
+        {
+            diff = 3;
+        }
 
         hintone = (EditText) findViewById(R.id.txthintone);
         //hinttwo = (EditText) findViewById(R.id.txthinetwo);
@@ -176,6 +191,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+
 
         b_scramble.setOnClickListener(new View.OnClickListener() {
             @Override
