@@ -1,8 +1,10 @@
 package com.example.darkness7245.vocabapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.speech.tts.TextToSpeech;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +43,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
     Button b_scramble;
     Button b_s;
     EditText hintone, wordtxt, userinput;
+
     int numberofhints = 0;
     TextToSpeech tts;
     /*private TextToSpeech tts;
@@ -57,24 +62,10 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.popup_menu2, menu);
+        inflater.inflate(R.menu.popup_menu, menu);
         return true;
     }
-
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch(item.getItemId())
-        {
-            case R.id.settings:
-                Intent intent=new Intent(this,SettingsActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.help:
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-   /* public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings:
                 return true;
@@ -82,7 +73,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 diff = 0;
                 b_scramble.callOnClick();
                 return true;
-           case R.id.med:
+            case R.id.med:
                 diff = 1;
                 b_scramble.callOnClick();
                 return true;
@@ -98,7 +89,8 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 diff = 4;
                 b_scramble.callOnClick();
                 return true;
-
+            case R.id.help:
+                return true;
             case R.id.save:
                 if (score > HighScore)
                 {
@@ -113,12 +105,13 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
             case R.id.load:
                 LoadScores();
                 return true;
-            case R.id.help:
+            case R.id.clear:
+                ClearScore();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }*/
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,9 +125,29 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
             }
         });
 
+        int exa = getIntent().getIntExtra("example", -1);
 
-
-
+        //easy = (RadioButton) findViewById(R.id.RGdiff).findViewById(R.id.radeasy);
+        if (exa == 0)
+        {
+            diff = 0;
+        }
+        else if (exa == 1)
+        {
+            diff = 1;
+        }
+        else if (exa == 2)
+        {
+            diff = 2;
+        }
+        else if (exa == 3)
+        {
+            diff = 4;
+        }
+        else if (exa == 4)
+        {
+            diff = 3;
+        }
 
         hintone = (EditText) findViewById(R.id.txthintone);
         //hinttwo = (EditText) findViewById(R.id.txthinetwo);
@@ -180,6 +193,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+
 
         b_scramble.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -312,7 +326,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                         } else if (CheckWord(word, userInput) == false) {
                             triesleft--;
                             if(triesleft > 1) {
-                                Toast toast = Toast.makeText(getApplicationContext(), "Wrong! You have " + triesleft + " tries left" + " Please guess again!", Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Wrong! You have " + triesleft + " lives left" + ". Please guess again!", Toast.LENGTH_SHORT);
                                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                                 TextView b = (TextView) toast.getView().findViewById(android.R.id.message);
                                 b.setTextColor(Color.RED);
@@ -320,7 +334,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                             }
                             else if (triesleft == 1)
                             {
-                                Toast toast = Toast.makeText(getApplicationContext(), "Wrong! You have " + triesleft + " try left" + " Please guess again!", Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Wrong! You have " + triesleft + " life left" + ". Please guess again!", Toast.LENGTH_SHORT);
                                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                                 TextView b = (TextView) toast.getView().findViewById(android.R.id.message);
                                 b.setTextColor(Color.RED);
@@ -342,6 +356,25 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                                     SaveScores(scoretosave);
                                     LoadScores();
                                 }
+                                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                                alertDialog.setTitle("Alert");
+                                alertDialog.setMessage("Game Over! would you like to play again?");
+                                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                b_scramble.callOnClick();
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                Intent intent = new Intent(MainActivity.this,GameActivity.class);
+                                                startActivity(intent);
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                alertDialog.show();
                                 triesleft = 4;
                                 numofwrong = 0;
                                 score = 0;
@@ -534,6 +567,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         } catch (Exception e) {
             e.printStackTrace();
         }
+        LoadScores();
     }
     public void LoadScores() {
         //reading text from file
@@ -545,14 +579,30 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
             while (line != null) {
                 put = line;
                 line = reader.readLine();
-                txthighscore.setText("Highscore: " + put);
             }
+            txthighscore.setText("Highscore: " + put);
             reader.close();
 
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public void ClearScore() {
+        score = 0;
+        txtscore.setText("Score: ");
+        try {
+            FileOutputStream fileout = openFileOutput("scores.txt", MODE_PRIVATE);
+            OutputStreamWriter outputWriter = new OutputStreamWriter(fileout);
+            outputWriter.write(0);
+            outputWriter.close();
+
+            Toast.makeText(getBaseContext(), "Score cleared successfully!", Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        LoadScores();
     }
 
         /*tts = new TextToSpeech(this, this);
