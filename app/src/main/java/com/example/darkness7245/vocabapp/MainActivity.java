@@ -57,10 +57,24 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.popup_menu, menu);
+        inflater.inflate(R.menu.popup_menu2, menu);
         return true;
     }
-    public boolean onOptionsItemSelected(MenuItem item) {
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch(item.getItemId())
+        {
+            case R.id.settings:
+                Intent intent=new Intent(this,SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.help:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+   /* public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings:
                 return true;
@@ -68,7 +82,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 diff = 0;
                 b_scramble.callOnClick();
                 return true;
-            case R.id.med:
+           case R.id.med:
                 diff = 1;
                 b_scramble.callOnClick();
                 return true;
@@ -84,8 +98,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 diff = 4;
                 b_scramble.callOnClick();
                 return true;
-            case R.id.help:
-                return true;
+
             case R.id.save:
                 if (score > HighScore)
                 {
@@ -100,10 +113,12 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
             case R.id.load:
                 LoadScores();
                 return true;
+            case R.id.help:
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
+    }*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
