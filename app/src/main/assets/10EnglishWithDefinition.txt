@@ -17,3 +17,29 @@ Debug:Identify and remove errors from computer hardware or software.
 Duplicate:Exactly like something else, especially through having been copied.
 Dimension:A measurable extent of some kind, such as length, breadth, depth, or height.
 Object:A material thing that can be seen and touched.
+Memory:The mental capacity or  faculty of retaining and reviving facts, events, impression or of recalling or recognizing previous experiences.
+Abstract:Relating to or involving general ideas or qualities rather than specific people, objects, or actions.
+Bankrupt:Unable to pay debts, a person who is lacking in a particular thing or quality.
+Cage:A box made of wire or metal bars in which people keep animals or birds.
+Dance:To move your body in a way that goes with the rhythm and style of music that is being played.
+Economy:The process or system by which good and services are produced, sold, and bough in a country or region.
+Fabric:Woven or knitted material.
+Generous:Freely giving or sharing money and other valuable things.
+Hardware:Equipment used for a particular purpose.
+Impact:The act or force of one thing hitting another. A powerful or major influence or effect.
+Jacket:A piece of clothing that is worn on your upper bofy over another piece of clothing.
+Kindness:Friendly feeling; liking. The state or quality of being kind.
+Language:The system of words or signs that people use to express thoughts and feelings to each other.
+Machine:A piece of equipment with moving parts that does work when it is given power from electricity,gasoline, etc.
+Negligence:Failure to take the care that a responsible person usually takes. Lack of normal care or attention.
+Oath:A formal and serious promise to tell the truth or to do something.
+Painter:A person whose job it is to paint walls, houses, etc.
+Qualification:Something that is necessary in order for you to do, have, or be part of something.
+Rage:A strong feeling of anger that is difficult ro control.
+Sarcastic:using or showing sarcasm.
+Teammate:A person who is on the same team as someone else.
+Underdog:A person, team, etc., that is expected to lose a contest or battle.
+Victory:Success in defeating an opponent or enemy.
+Wander:To move around or to go different places usually without having a particular purpoe or direction.
+Yesterday:The day before today.
+Zero:Nothing at all.
