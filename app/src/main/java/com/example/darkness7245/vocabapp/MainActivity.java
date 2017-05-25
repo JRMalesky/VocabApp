@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 b_scramble.callOnClick();
                 return true;
             case R.id.help:
+                startActivity(new Intent(MainActivity.this,Pop.class));
                 return true;
             case R.id.save:
                 if (score > HighScore)
