@@ -139,26 +139,26 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
             }
         });
 
-        int exa = getIntent().getIntExtra("example", -1);
+        int difficulty = getIntent().getIntExtra("example", -1);
 
         //easy = (RadioButton) findViewById(R.id.RGdiff).findViewById(R.id.radeasy);
-        if (exa == 0)
+        if (difficulty == 0)
         {
             diff = 0;
         }
-        else if (exa == 1)
+        else if (difficulty == 1)
         {
             diff = 1;
         }
-        else if (exa == 2)
+        else if (difficulty == 2)
         {
             diff = 2;
         }
-        else if (exa == 3)
+        else if (difficulty == 3)
         {
             diff = 4;
         }
-        else if (exa == 4)
+        else if (difficulty == 4)
         {
             diff = 3;
         }
@@ -372,7 +372,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                                 }
                                 AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                                 alertDialog.setTitle("Alert");
-                                alertDialog.setMessage("Game Over! would you like to play again?");
+                                alertDialog.setMessage("Game Over! Would you like to play again?");
                                 alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {

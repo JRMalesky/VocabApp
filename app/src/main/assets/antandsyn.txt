@@ -13,7 +13,33 @@ League of Legends:Synonyms MOBA. Antonyms life
 Halloween:Synonyms 31st of October, witchcraft.
 Storytelling:Synonyms poet, narrator. Antonyms liar
 Director:Synonyms administrator, chief. Antonyms employee worker
-Debug:Synonyms unscramble, fix. Antoyms break, destroy
+Debug:Synonyms unscramble, fix. Antonyms break, destroy
 Duplicate:Synonyms clone, copy. Antonyms original
 Dimension:Synonyms aspect, element. Antonyms unimportance, insignificance
 Object:Synonyms item, body. Antonyms nothing, nothingness
+Memory:Synonyms recall, Remembrance. Antonyms amnesia, forgetful
+Abstract:Synonyms ideal, philosophical. Antonyms real, simple
+Bankrupt:Synonyms broke, depleted. Antonyms rich, wealthy
+Cage:Synonyms crate, jail. Antonyms free, release
+Dance:Synonyms disco, swing. Antonyms controlling, still
+Economy:Synonyms regulation, providence. Antonyms neglect, disregard.
+Fabric:Synonyms fiber, goods, Antonyms nonmaterial
+Generous:Synonyms benevolent, fair. Antonyms greedy, mean
+Hardware:Synonyms appliances, metalware. Antonyms software, container
+Impact:Synonyms shock, bang Antonyms stillness, avoidance
+Jacket:Synonyms coat, parka Antonyms uncover, unclothe
+Kindness:Synonyms affection, grace Antonyms hatred, hostility
+Language:Synonyms dialect, speech Antonyms silence, quiet
+Machine:Synonyms engine, gadget Antonyms end, simple
+Negligence:Synonyms sloppy, inattentive Antonyms careful, mindful
+Oath:Synonyms vow, bond Antonyms break
+Painter:Synonyms interior decorator, artist
+Qualification:Synonyms capability, eligibility Antonyms ignorance, inability
+Rage:Synonyms bitterness, fury Antonyms calm, peace
+Sarcastic:Synonyms bitter, saucy Antonyms bland, kind
+Teammate:Synonyms colleague, partner Antonyms enemy
+Underdog:Synonyms longshot, dark horse Antonyms favorite
+Victory:Synonyms achievement, win Antonyms failure, loss, defeat
+Wander:Synonyms stray, stroll Antonyms still, stay
+Yesterday:Synonyms past, recently Antonyms tomorrow, future
+Zero:Synonyms void, null Antonyms something, somebody
