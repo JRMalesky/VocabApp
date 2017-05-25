@@ -31,6 +31,15 @@
             <item
                 android:id="@+id/clear"
                 android:title="Clear score"/>
+            <item
+                android:id="@+id/white"
+                android:title="White"/>
+            <item
+                android:id="@+id/cyan"
+                android:title="Cyan"/>
+            <item
+                android:id="@+id/purple"
+                android:title="Purple"/>
         </menu>
     </item>
     <item android:id="@+id/help"

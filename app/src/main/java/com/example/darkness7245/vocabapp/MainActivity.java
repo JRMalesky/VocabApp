@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.speech.tts.TextToSpeech;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,6 +40,8 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity { //implements TextToSpeech.OnInitListener
 
+    ConstraintLayout constraintLayout;
+
     TextView tv_text, def, hint2, hint3, txtscore, txthighscore;
     Button b_scramble;
     Button b_s;
@@ -66,8 +69,19 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         return true;
     }
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        constraintLayout=(ConstraintLayout)findViewById(R.id.primary_constraintLayout);
         switch (item.getItemId()) {
             case R.id.settings:
+                return true;
+            case R.id.purple:
+                constraintLayout.setBackgroundColor(Color.argb(255, 234, 179, 255));
+                return true;
+            case R.id.white:
+                constraintLayout.setBackgroundColor(Color.WHITE);
+                 return true;
+            case R.id.cyan:
+                constraintLayout.setBackgroundColor(Color.CYAN);
                 return true;
             case R.id.easy:
                 diff = 0;
