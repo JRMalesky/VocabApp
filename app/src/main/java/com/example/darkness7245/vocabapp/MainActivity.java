@@ -358,7 +358,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                                 }
                                 AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                                 alertDialog.setTitle("Alert");
-                                alertDialog.setMessage("Game Over! would you like to play again?");
+                                alertDialog.setMessage("Game Over! Would you like to play again?");
                                 alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
