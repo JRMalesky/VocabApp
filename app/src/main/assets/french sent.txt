@@ -1,0 +1,28 @@
+je:__ m'appelle Sean.
+moi:Donne ___ un calin.
+classe:J'ai ______ a 7 heures?
+jeu:vouloir jouer un ___?
+jouer:Voulez-vous _____ au football?
+musique:quel genre de _______ aimez-vous?
+tissu:J'aime vraiment la sensation de ce _____.
+bonjour:_______, ca'va?
+au revoir:Je te deteste __ ______.
+comment:______ puis-je utiliser cette machine?
+amour:Tu es l'_____ de ma vie.
+garcon:Ce _____ est si immature.
+fille:Cette fille est belle.
+ami:Vous avez raison mon ___.
+rever:J'ai eu le meilleur ____ la nuit derniere.
+danse:Voulez-vous _____?
+genereuse:Merci de m'avoir donne cela, vous etes si ________.
+pourquoi:________ etes-vous si ennuyant?
+objet:L'_____ dans la distance ressemble a un avion est-ce?
+errer:Il continue a _____.
+toi:C'est ___.
+prof:J'ai entendu dire que le __________ du lycee est sympa.
+mere:Votre ____ est vraiment gentille
+frere:Ou est ton ____?
+pere:Ton ____ sait ce qu'il fait, n'est-ce pas?
+soeur:Votre _____ est a la plage.
+infirmiere:J'ai entendu dire que l'__________ est bonne, il est en bonnes mains.
+hopital:Ou se trouve l'_______ le plus proche?

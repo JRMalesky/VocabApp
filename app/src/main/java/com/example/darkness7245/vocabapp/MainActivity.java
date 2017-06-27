@@ -73,55 +73,72 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         constraintLayout=(ConstraintLayout)findViewById(R.id.primary_constraintLayout);
         switch (item.getItemId()) {
             case R.id.settings:
+                Intent intent = new Intent(MainActivity.this,Settings.class);
+                startActivity(intent);
                 return true;
-            case R.id.purple:
-                constraintLayout.setBackgroundColor(Color.argb(255, 234, 179, 255));
-                return true;
-            case R.id.white:
-                constraintLayout.setBackgroundColor(Color.WHITE);
-                 return true;
-            case R.id.cyan:
-                constraintLayout.setBackgroundColor(Color.CYAN);
-                return true;
-            case R.id.easy:
-                diff = 0;
-                b_scramble.callOnClick();
-                return true;
-            case R.id.med:
-                diff = 1;
-                b_scramble.callOnClick();
-                return true;
-            case R.id.hard:
-                diff = 2;
-                b_scramble.callOnClick();
-                return true;
-            case R.id.random:
-                diff = 3;
-                b_scramble.callOnClick();
-                return true;
-            case R.id.streak:
-                diff = 4;
-                b_scramble.callOnClick();
-                return true;
+           // case R.id.purple:
+           //     constraintLayout.setBackgroundColor(Color.argb(255, 234, 179, 255));
+           //     return true;
+           // case R.id.white:
+           //     constraintLayout.setBackgroundColor(Color.WHITE);
+           //      return true;
+           // case R.id.cyan:
+           //     constraintLayout.setBackgroundColor(Color.CYAN);
+           //     return true;
+          // case R.id.easy:
+          //     diff = 0;
+          //     b_scramble.callOnClick();
+          //     return true;
+          // case R.id.med:
+          //     diff = 1;
+          //     b_scramble.callOnClick();
+          //     return true;
+          // case R.id.hard:
+          //     diff = 2;
+          //     b_scramble.callOnClick();
+          //     return true;
+          // case R.id.random:
+          //     diff = 3;
+          //     b_scramble.callOnClick();
+          //     return true;
+          // case R.id.streak:
+          //     diff = 4;
+          //     b_scramble.callOnClick();
+          //     return true;
             case R.id.help:
+                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                alertDialog.setTitle("Help");
+                alertDialog.setMessage("The first hint is the first letter of the word." +
+                        "\nThe second hint is the word used in a sentence." +
+                        "\nThe third hint is the synonyms and synonyms of the word." +
+                        "\nHint gives you one hint at a time. You have three hints." +
+                        "\nSkip skips the word you are currently on" +
+                        "\nOnce you guess four wrong answers you lose.");
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Okay",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
                 return true;
-            case R.id.save:
-                if (score > HighScore)
-                {
-                    HighScore = score;
-                    scoretosave = score;
-                    SaveScores(scoretosave);
-                }
-                else
-                    Toast.makeText(getBaseContext(), "Your score did not beat the Highscore", Toast.LENGTH_SHORT).show();
-
-                return true;
-            case R.id.load:
-                LoadScores();
-                return true;
-            case R.id.clear:
-                ClearScore();
-                return true;
+           // case R.id.save:
+           //     if (score > HighScore)
+           //     {
+           //         HighScore = score;
+           //         scoretosave = score;
+           //         SaveScores(scoretosave);
+           //     }
+           //     else
+           //         Toast.makeText(getBaseContext(), "Your score did not beat the Highscore", Toast.LENGTH_LONG).show();
+//
+           //     return true;
+           // case R.id.load:
+           //     LoadScores();
+           //     return true;
+           // case R.id.clear:
+           //     ClearScore();
+           //     return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -130,6 +147,8 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //constraintLayout=(ConstraintLayout)findViewById(R.id.primary_constraintLayout);
+        //constraintLayout.setBackgroundColor(Color.argb(100, 51, 153, 255));
         tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             public void onInit(int status) {
                 if (status != TextToSpeech.ERROR)
@@ -138,10 +157,35 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 LoadScores();
             }
         });
+        int settings = getIntent().getIntExtra("settingsExtra", -1);
+        //easy
+        if (settings == 0)
+        {
+            diff = 0;
+        }
+        //med
+        else if (settings == 1)
+        {
+            diff = 1;
+        }
+        //hard
+        else if (settings == 2)
+        {
+            diff = 2;
+        }
+        //streak
+        else if (settings == 3)
+        {
+            diff = 3;
+        }
+        //rand
+        else if (settings == 4)
+        {
+            diff = 4;
+        }
 
         int difficulty = getIntent().getIntExtra("example", -1);
 
-        //easy = (RadioButton) findViewById(R.id.RGdiff).findViewById(R.id.radeasy);
         if (difficulty == 0)
         {
             diff = 0;
@@ -164,14 +208,9 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         }
 
         hintone = (EditText) findViewById(R.id.txthintone);
-        //hinttwo = (EditText) findViewById(R.id.txthinetwo);
-        //hintthree = (EditText) findViewById(R.id.txthintthree);
-        //wordtxt = (EditText) findViewById(R.id.txtword);
         userinput = (EditText) findViewById(R.id.txtinput);
         Button hintbtn = (Button) findViewById(R.id.btnHInt);
-        //Button nextbtn = (Button) findViewById(R.id.btnnext);
         b_scramble = (Button) findViewById(R.id.btnnext);
-        //b_s = (Button) findViewById((R.id.b_s));
         tv_text = (TextView) findViewById(R.id.txtviewword);
         def = (TextView) findViewById(R.id.txtviewdef);
         hint2 = (TextView) findViewById(R.id.txtviewhint2);
@@ -179,9 +218,6 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         txtscore = (TextView) findViewById(R.id.txtviewscore);
         txthighscore = (TextView) findViewById(R.id.txthighscores);
 
-        //word = word.toLowerCase();
-        //String scrambledword = ScrambleWord(word);
-        //wordtxt.setText(scrambledword);
         final List<String> synlist = new ArrayList<>();
 
         try {
@@ -207,7 +243,6 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
 
         b_scramble.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -259,7 +294,6 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 }
                 String empty = "";
                 hintone.setText(empty);
-                //hinttwo.setText(empty);
                 hint2.setText(empty);
                 hint3.setText(empty);
                 numberofhints = 0;
@@ -278,10 +312,9 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                     if (numberofhints == 1) {
                         //first hint first letter of the given word
                         String firstLetter = String.valueOf(word.charAt(0));
-                        hintone.setText(firstLetter);
+                        hintone.setText("The first letter is: " + firstLetter);
                     } else if (numberofhints == 2) {
                         //second hint sentence
-
                         String sentword = " ";
                         String sentence = "A dog is a man's best friend.";
 
@@ -297,7 +330,6 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                             }
                             index++;
                         }
-                        //hinttwo.setText(sentence);
                         hint2.setText(sentence);
                     } else if (numberofhints == 3) {
                         //third hint syn and ant
@@ -328,7 +360,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                     if (keyCode == KeyEvent.KEYCODE_ENTER) {
                         String userInput = userinput.getText().toString();
                         if (CheckWord(word, userInput) == true) {
-                            Toast toast = Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_SHORT);
+                            Toast toast = Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_LONG);
                             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                             TextView t = (TextView) toast.getView().findViewById(android.R.id.message);
                             t.setTextColor(Color.GREEN);
@@ -340,18 +372,16 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                         } else if (CheckWord(word, userInput) == false) {
                             triesleft--;
                             if(triesleft > 1) {
-                                Toast toast = Toast.makeText(getApplicationContext(), "Wrong! You have " + triesleft + " lives left" + ". Please guess again!", Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Wrong! You have " + triesleft + " lives left" + ". Please guess again!", Toast.LENGTH_LONG);
                                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                                 TextView b = (TextView) toast.getView().findViewById(android.R.id.message);
-                                b.setTextColor(Color.RED);
                                 toast.show();
                             }
                             else if (triesleft == 1)
                             {
-                                Toast toast = Toast.makeText(getApplicationContext(), "Wrong! You have " + triesleft + " life left" + ". Please guess again!", Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Wrong! You have " + triesleft + " life left" + ". Please guess again!", Toast.LENGTH_LONG);
                                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                                 TextView b = (TextView) toast.getView().findViewById(android.R.id.message);
-                                b.setTextColor(Color.RED);
                                 toast.show();
                             }
                             String empty = "";
@@ -359,10 +389,6 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                             numofcorrect = 0;
                             numofwrong++;
                             if (numofwrong > 3) {
-                                Toast endgametoast = Toast.makeText(getApplicationContext(), "Game over!", Toast.LENGTH_SHORT);
-                                TextView g = (TextView) endgametoast.getView().findViewById(android.R.id.message);
-                                g.setTextColor(Color.RED);
-                                endgametoast.show();
                                 if (score > HighScore) {
                                     Toast.makeText(getBaseContext(), "Congratulations you beat your Highscore!", Toast.LENGTH_SHORT).show();
                                     HighScore = score;
@@ -371,8 +397,8 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                                     LoadScores();
                                 }
                                 AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-                                alertDialog.setTitle("Alert");
-                                alertDialog.setMessage("Game Over! Would you like to play again?");
+                                alertDialog.setTitle("Game Over");
+                                alertDialog.setMessage("Would you like to play again?");
                                 alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
