@@ -95,10 +95,10 @@
             android:text="English" />
 
         <RadioButton
-            android:id="@+id/radChin"
+            android:id="@+id/radFrench"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Chinese" />
+            android:text="French" />
     </RadioGroup>
 
     <TextView
