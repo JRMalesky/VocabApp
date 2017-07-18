@@ -1,5 +1,6 @@
 package com.ied.darkness7245.vocabapp;
 
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -53,9 +54,10 @@ public class Settings extends AppCompatActivity {
     }
     private int Getlang()
     {
-        RadioButton eng, french;
+        RadioButton eng, french, spanish;
         eng = (RadioButton) findViewById(R.id.radeng);
         french = (RadioButton) findViewById(R.id.radfrench);
+        spanish = (RadioButton) findViewById(R.id.radspanish);
         if (eng.isChecked())
         {
             return 0;
@@ -63,6 +65,10 @@ public class Settings extends AppCompatActivity {
         else if (french.isChecked())
         {
             return 1;
+        }
+        else if (spanish.isChecked())
+        {
+            return 2;
         }
         else
             return 0;

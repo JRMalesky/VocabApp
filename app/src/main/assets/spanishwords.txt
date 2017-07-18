@@ -1,0 +1,24 @@
+yo:The nominative singular pronoun, used by a speaker in referring to himself or herself.
+clase:A group of students meeting regularly to study a subject under the guidance of a teacher
+tu:The pronoun of the second person singular or plural, used of the person or persons being addressed, in the nominative or objective case.
+jugar:Exercise or activity for amusement or recreation.
+musica:The tones or sounds employed, occurring in single line (melody) or multiple lines (harmony), and sounded or to be sounded by one or more voices or instruments, or both.
+juego:A competitive activity involving skill, chance, or endurance on the part of two or more persons who play according to a set of rules, usually for their own amusement or for that of spectators.
+chica:A young, immature woman, especially formerly, an unmarried one.
+chico:A young man who lacks maturity, judgment, etc.
+hola:Used to express a greeting, answer a telephone, or attract attention.
+adios:Farewell; a conventional expression used at leave-taking or parting with people and at the loss or rejection of things or ideas.
+profesor:A person who teaches or instructs, especially as a profession; instructor.
+padre:A male parent.
+madre:A female parent.
+hermano:A male offspring having both parents in common with another offspring; a male sibling.
+hermana:A female offspring having both parents in common with another offspring; female sibling.
+que:For what? for what reason, cause, or purpose
+como:In what way or manner; by what means
+gato:a small domesticated carnivorous mammal with soft fur, a short snout, and retractile claws. It is widely kept as a pet or for catching mice, and many breeds have been developed.
+perro:a domesticated carnivorous mammal that typically has a long snout, an acute sense of smell, and a barking, howling, or whining voice. It is widely kept as a pet or for work or field sports.
+Bailer:To move one's feet or body, or both, rhythmically in a pattern of steps, especially to the accompaniment of music.
+amigo:A person who is on good terms with another; a person who is not hostile.
+enfermera:A person formally educated and trained in the care of the sick or infirm.
+hospital:an institution in which sick or injured persons are given medical or surgical treatment.
+amor:A feeling of warm personal attachment or deep affection, as for a parent, child, or friend.

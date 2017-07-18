@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
     int HighScore = 0;
     int triesleft = 4;
     int lang = 0;
-    List<String> leaderboard = new ArrayList<>();
+    List<Integer> leaderboard = new ArrayList<>();
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -116,35 +116,6 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 }
                 b_scramble.callOnClick();
                 return true;
-           // case R.id.purple:
-           //     constraintLayout.setBackgroundColor(Color.argb(255, 234, 179, 255));
-           //     return true;
-           // case R.id.white:
-           //     constraintLayout.setBackgroundColor(Color.WHITE);
-           //      return true;
-           // case R.id.cyan:
-           //     constraintLayout.setBackgroundColor(Color.CYAN);
-           //     return true;
-          // case R.id.easy:
-          //     diff = 0;
-          //     b_scramble.callOnClick();
-          //     return true;
-          // case R.id.med:
-          //     diff = 1;
-          //     b_scramble.callOnClick();
-          //     return true;
-          // case R.id.hard:
-          //     diff = 2;
-          //     b_scramble.callOnClick();
-          //     return true;
-          // case R.id.random:
-          //     diff = 3;
-          //     b_scramble.callOnClick();
-          //     return true;
-          // case R.id.streak:
-          //     diff = 4;
-          //     b_scramble.callOnClick();
-          //     return true;
             case R.id.help:
                 AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                 alertDialog.setTitle("Help");
@@ -166,23 +137,6 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 Intent leaderintent = new Intent(MainActivity.this,leaderboard.class);
                 startActivity(leaderintent);
                 return true;
-           // case R.id.save:
-           //     if (score > HighScore)
-           //     {
-           //         HighScore = score;
-           //         scoretosave = score;
-           //         SaveScores(scoretosave);
-           //     }
-           //     else
-           //         Toast.makeText(getBaseContext(), "Your score did not beat the Highscore", Toast.LENGTH_LONG).show();
-//
-           //     return true;
-           // case R.id.load:
-           //     LoadScores();
-           //     return true;
-           // case R.id.clear:
-           //     ClearScore();
-           //     return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -191,13 +145,20 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //constraintLayout=(ConstraintLayout)findViewById(R.id.primary_constraintLayout);
-        //constraintLayout.setBackgroundColor(Color.argb(100, 51, 153, 255));
         tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             public void onInit(int status) {
                 if (status != TextToSpeech.ERROR)
-                    tts.setLanguage(Locale.FRANCE);
+                    if (lang == 1)
+                    {
+                        tts.setLanguage(Locale.FRANCE);
+                    }
+                    else if (lang == 2)
+                    {
+                        //need to get another tts
+                        tts.setLanguage(Locale.FRENCH);
+                    }
                 b_scramble.callOnClick();
+                ClearScore();
                 LoadScores();
             }
         });
@@ -228,14 +189,22 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         b_s = (Button) findViewById(R.id.bt_s);
         int language = getIntent().getIntExtra("lang", 0);
 
+        //defualt english
         if (language == 0)
         {
             lang = 0;
             b_s.setEnabled(false);
         }
+        //french
         else if (language == 1)
         {
             lang = 1;
+            b_s.setEnabled(true);
+        }
+        //spanish
+        else if (language == 2)
+        {
+            lang = 2;
             b_s.setEnabled(true);
         }
 
@@ -252,6 +221,34 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         hint3 = (TextView) findViewById(R.id.txtview3rdhint);
         txtscore = (TextView) findViewById(R.id.txtviewscore);
         txthighscore = (TextView) findViewById(R.id.txthighscores);
+
+        final List<String> spanishwords = new ArrayList<>();
+
+        try {
+            InputStream is = getAssets().open("spanishwords.txt");
+            BufferedReader reader = new BufferedReader((new InputStreamReader(is)));
+            String line = reader.readLine();
+            while (line != null) {
+                spanishwords.add(line);
+                line = reader.readLine();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        final List<String> spanishsent = new ArrayList<>();
+
+        try {
+            InputStream is = getAssets().open("spanishsent.txt");
+            BufferedReader reader = new BufferedReader((new InputStreamReader(is)));
+            String line = reader.readLine();
+            while (line != null) {
+                spanishsent.add(line);
+                line = reader.readLine();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
 
         final List<String> frenchwords = new ArrayList<>();
 
@@ -305,22 +302,6 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-       //FirebaseDatabase engdata = FirebaseDatabase.getInstance();
-       //DatabaseReference engref = engdata.getReference("frenchsent");
-       //engref.setValue(frenchsent);
-
-       //engref.addValueEventListener(new ValueEventListener() {
-       //    @Override
-       //    public void onDataChange(DataSnapshot dataSnapshot) {
-       //        String value = dataSnapshot.getValue(String.class);
-       //        Log.d("message", "Value is: " + value);
-       //    }
-       //    @Override
-       //    public void onCancelled(DatabaseError databaseError) {
-       //        Log.d("message", "failed to read value.", databaseError.toException());
-       //    }
-       //});
-
         FirebaseDatabase engdata = FirebaseDatabase.getInstance();
         DatabaseReference engref = engdata.getReference("englishsent");
         String key = engref.push().getKey();
@@ -451,16 +432,14 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
             }
         });
 
-
-        FirebaseDatabase leaderboards = FirebaseDatabase.getInstance();
-        final DatabaseReference leaderref = leaderboards.getReference("leaderboard");
-        //leaderref.setValue(leaderboard);
-        leaderref.addChildEventListener(new ChildEventListener() {
-
+        //FirebaseDatabase engdata = FirebaseDatabase.getInstance();
+        engref = engdata.getReference("spanishwords");
+        //engref.setValue(spanishwords);
+        engref.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String message = dataSnapshot.getValue(String.class);
-                leaderboard.add(message);
+                spanishwords.add(message);
             }
 
             @Override
@@ -471,6 +450,72 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 String message = dataSnapshot.getValue(String.class);
+                spanishwords.remove(message);
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        //FirebaseDatabase engdata = FirebaseDatabase.getInstance();
+        engref = engdata.getReference("spanishsent");
+        //engref.setValue(spanishsent);
+        engref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String message = dataSnapshot.getValue(String.class);
+                spanishsent.add(message);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                String message = dataSnapshot.getValue(String.class);
+                spanishsent.remove(message);
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        FirebaseDatabase leaderboards = FirebaseDatabase.getInstance();
+        final DatabaseReference leaderref = leaderboards.getReference("leaderboard");
+        //leaderref.setValue(leaderboard);
+        leaderref.addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Integer message = dataSnapshot.getValue(Integer.class);
+                leaderboard.add(message);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Integer message = dataSnapshot.getValue(Integer.class);
                 leaderboard.remove(message);
             }
 
@@ -498,22 +543,6 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
             }
 
-
-            //FirebaseDatabase engdata = FirebaseDatabase.getInstance();
-            //DatabaseReference engref = engdata.getReference("englishdictandsent");
-            //engref.setValue(lines);
-
-            //engref.addValueEventListener(new ValueEventListener() {
-            //    @Override
-            //    public void onDataChange(DataSnapshot dataSnapshot) {
-            //        String value = dataSnapshot.getValue(String.class);
-            //        Log.d("message", "Value is: " + value);
-            //    }
-            //    @Override
-            //    public void onCancelled(DatabaseError databaseError) {
-            //        Log.d("message", "failed to read value.", databaseError.toException());
-            //    }
-            //});
             FirebaseDatabase engdataword = FirebaseDatabase.getInstance();
             DatabaseReference engrefword = engdataword.getReference("englishdict");
             //engrefword.setValue(lines);
@@ -574,6 +603,10 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                     {
                         Easy_Difficulty(frenchwords);
                     }
+                    else if (lang == 2)
+                    {
+                        Easy_Difficulty(spanishwords);
+                    }
                 }
                 //medium
                 if (diff == 1)
@@ -586,6 +619,10 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                     else if (lang == 1)
                     {
                         Med_Difficulty(frenchwords);
+                    }
+                    else if (lang == 2)
+                    {
+                        Med_Difficulty(spanishwords);
                     }
                 }
                 //hard
@@ -600,6 +637,10 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                     {
                         Hard_Difficulty(frenchwords);
                     }
+                    else if (lang == 2)
+                    {
+                        Hard_Difficulty(spanishwords);
+                    }
                 }
                 //random
                 if (diff == 3)
@@ -612,6 +653,10 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                     else if (lang == 1)
                     {
                         Random_Difficulty(frenchwords);
+                    }
+                    else if (lang == 2)
+                    {
+                        Random_Difficulty(spanishwords);
                     }
                 }
                 //streak
@@ -626,6 +671,10 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                     {
                         Streak_Difficulty(frenchwords);
                     }
+                    else if (lang == 2)
+                    {
+                        Streak_Difficulty(spanishwords);
+                    }
                 }
                 String empty = "";
                 hintone.setText(empty);
@@ -634,6 +683,10 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 numberofhints = 0;
                 userinput.setText(empty);
                 if (lang == 1)
+                {
+                    hint3.setText("  ");
+                }
+                else if (lang == 2)
                 {
                     hint3.setText("  ");
                 }
@@ -682,6 +735,21 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                                     sentence = sentpart[1];
                                     break;
                                 } else if (index == frenchsent.size()) {
+                                    break;
+                                }
+                                index++;
+                            }
+                        }
+                        else if (lang == 2)
+                        {
+                            while (true) {
+
+                                String[] sentpart = spanishsent.get(index).split(":");
+                                sentword = sentpart[0];
+                                if (CheckWord(word, sentword)) {
+                                    sentence = sentpart[1];
+                                    break;
+                                } else if (index == spanishsent.size()) {
                                     break;
                                 }
                                 index++;
@@ -762,7 +830,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                                     alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
                                             new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
-                                                    leaderboard.add(String.valueOf(scoretosave));
+                                                    leaderboard.add(scoretosave);
                                                     leaderref.setValue(leaderboard);
                                                     dialog.dismiss();
                                                 }
@@ -1003,7 +1071,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 put = line;
                 line = reader.readLine();
             }
-            txthighscore.setText("Local Highscore: " + put);
+            txthighscore.setText("Highscore: " + put);
             reader.close();
 
 

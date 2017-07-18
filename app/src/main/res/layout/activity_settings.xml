@@ -77,18 +77,25 @@
         app:layout_constraintHorizontal_bias="0.502" />
 
     <RadioGroup
-        android:layout_width="170dp"
-        android:layout_height="63dp"
+        android:layout_width="171dp"
+        android:layout_height="96dp"
         android:layout_marginRight="0dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="28dp">
+        android:layout_marginTop="28dp"
+        tools:layout_editor_absoluteX="213dp">
 
         <RadioButton
             android:id="@+id/radeng"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="English" />
+
+        <RadioButton
+            android:id="@+id/radspanish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Spanish" />
 
         <RadioButton
             android:id="@+id/radfrench"

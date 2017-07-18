@@ -26,3 +26,6 @@ pere:A male parent.
 soeur:A female offspring having both parents in common with another offspring; female sibling.
 infirmiere:A person formally educated and trained in the care of the sick or infirm.
 hopital:an institution in which sick or injured persons are given medical or surgical treatment.
+chien:a domesticated carnivorous mammal that typically has a long snout, an acute sense of smell, and a barking, howling, or whining voice. It is widely kept as a pet or for work or field sports.
+chat:a small domesticated carnivorous mammal with soft fur, a short snout, and retractile claws. It is widely kept as a pet or for catching mice, and many breeds have been developed.
+Feu:combustion or burning, in which substances combine chemically with oxygen from the air and typically give out bright light, heat, and smoke.

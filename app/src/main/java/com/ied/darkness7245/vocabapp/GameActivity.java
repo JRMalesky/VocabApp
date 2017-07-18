@@ -70,9 +70,10 @@ public class GameActivity extends AppCompatActivity {
     }
     private final int GetLanguage()
     {
-        RadioButton english, french;
+        RadioButton english, french, spanish;
         english = (RadioButton) findViewById(R.id.radEnglish);
         french = (RadioButton) findViewById(R.id.radFrench);
+        spanish = (RadioButton) findViewById(R.id.radspanishmain);
         if (english.isChecked())
         {
             return 0;
@@ -80,6 +81,10 @@ public class GameActivity extends AppCompatActivity {
         else if (french.isChecked())
         {
             return  1;
+        }
+        else if (spanish.isChecked())
+        {
+            return 2;
         }
         else
         {

@@ -1,0 +1,24 @@
+yo:¿Quieres ir a la playa con mi amigo y __?
+clase:¿Tienes ______ hoy?
+tu:__ eres mi mejor amigo.
+jugar:¿Quieres _____ con nosotros?
+musica:Esta ______ tiene un buen ritmo.
+juego:¿quieres jugar un _____?
+chica:Esa ____ esta loca.
+chico:Ese _____ se lastimó de nuevo.
+hola:¿____, como fue tu dia?
+adios:_____ Ten un buen día.
+profesor:El ________ canta a la musica en la radio.
+padre:Mi _____ me quiere en casa a las cinco.
+madre:Mi _____ es la cebeza de la casa.
+hermano:Mi _______ quiere venir con nosotros.
+hermana:Tu ________ quería que supieras que nos encontraría allí.
+que:¿___ eres tan fastidioso?
+como:¿____ estas?
+gato:¿tienes un ____?
+perro:Tu _____ es tan agradable.
+bailer:¿quieres _______?
+amigo:Este es mi _____ bob.
+enfermera:La _________ se cuidará bien de usted.
+hospital:Podríamos tener que ir al ________ por estas heridas.
+amor:te ___.

@@ -95,6 +95,12 @@
             android:text="English" />
 
         <RadioButton
+            android:id="@+id/radspanishmain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Spanish" />
+
+        <RadioButton
             android:id="@+id/radFrench"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

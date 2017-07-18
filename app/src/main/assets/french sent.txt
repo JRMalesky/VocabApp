@@ -26,3 +26,6 @@ pere:Ton ____ sait ce qu'il fait, n'est-ce pas?
 soeur:Votre _____ est a la plage.
 infirmiere:J'ai entendu dire que l'__________ est bonne, il est en bonnes mains.
 hopital:Ou se trouve l'_______ le plus proche?
+chien:Ce _____ a l'air méchant.
+chat:Son ____ dort toute la journée.
+Feu:Le poêle a attrapé le ___.
