@@ -17,8 +17,29 @@ que:¿___ eres tan fastidioso?
 como:¿____ estas?
 gato:¿tienes un ____?
 perro:Tu _____ es tan agradable.
-bailer:¿quieres _______?
+bailar:¿quieres _______?
 amigo:Este es mi _____ bob.
 enfermera:La _________ se cuidará bien de usted.
 hospital:Podríamos tener que ir al ________ por estas heridas.
 amor:te ___.
+mas:___ queso, Por favor.
+salir:¡vete! ¡_____!
+Si:__, ese es él.
+ven:___ aquí por favor para que pueda hablar contigo.
+aqui:Estamos ____ este es el lugar.
+restaurante:Este ___________ no es tan bueno como los comentarios dicen que es.
+computadora:Hay algo mal con esta _________.
+persona:¿Conoce a esta ______?
+maquina:Esta _______ hace la tela mucho más rápidamente que podemos.
+Calificacion:No tenía las __________ adecuadas para el trabajo.
+victoria:Esa fue una _________ muy fácil.
+rabia:Realmente necesita controlar su ______.
+impacto:El _______ del meteorito fue tan fuerte que la gente lo oyó a kilómetros de distancia.
+duplicar:¿Puedes hacer un ________ de esto?
+hoy:¿Qué día es ___?
+teléfono:Tengo que usar tu ________ por favor.
+mochila:No olvides tu _______ antes de ir a clase.
+agua:¿puedo tomar un poco de ____?
+triste:Estoy ______.
+Cansaod:Estoy _______.
+esposa:Mi ______ es la mejor.
