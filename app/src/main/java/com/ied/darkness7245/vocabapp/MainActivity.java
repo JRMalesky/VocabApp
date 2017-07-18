@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
     int triesleft = 4;
     int lang = 0;
     List<Integer> leaderboard = new ArrayList<>();
+    Locale locSpanish = new Locale("spa", "MEX");
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -155,7 +156,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                     else if (lang == 2)
                     {
                         //need to get another tts
-                        tts.setLanguage(Locale.FRENCH);
+                        tts.setLanguage(locSpanish);
                     }
                 b_scramble.callOnClick();
                 ClearScore();
