@@ -29,3 +29,23 @@ hopital:an institution in which sick or injured persons are given medical or sur
 chien:a domesticated carnivorous mammal that typically has a long snout, an acute sense of smell, and a barking, howling, or whining voice. It is widely kept as a pet or for work or field sports.
 chat:a small domesticated carnivorous mammal with soft fur, a short snout, and retractile claws. It is widely kept as a pet or for catching mice, and many breeds have been developed.
 Feu:combustion or burning, in which substances combine chemically with oxygen from the air and typically give out bright light, heat, and smoke.
+Feu de camp:a fire outside that is made and used esp. by people who are staying in tents.
+poulet:a domestic fowl kept for its eggs or meat, especially a young one.
+chapeau:a shaped covering for the head worn for warmth, as a fashion item, or as part of a uniform.
+eau:a colorless, transparent, odorless, tasteless liquid that forms the seas, lakes, rivers, and rain and is the basis of the fluids of living organisms.
+chemise:a garment for the upper body made of cotton or a similar fabric, with a collar, sleeves, and buttons down the front.
+fatigue:in need of sleep or rest; weary.
+personne:a human being regarded as an individual.
+ours:a large, heavy, mammal that walks on the soles of its feet, with thick fur and a very short tail. Bears are related to the dog family, but most species are omnivorous.
+vache:a fully grown female animal of a domesticated breed of ox, used as a source of milk or beef.
+biche:a female deer.
+cerf:a hoofed grazing or browsing animal, with branched bony antlers that are shed annually and typically borne only by the male.
+heure:a period of time equal to a twenty-fourth part of a day and night and divided into 60 minutes.
+miroir:a reflective surface, now typically of glass coated with a metal amalgam, that reflects a clear image.
+chaise:a separate seat for one person, typically with a back and four legs.
+voiture:a road vehicle, typically with four wheels, powered by an internal combustion engine and able to carry a small number of people.
+chaussures:a covering for the foot, typically made of leather, with a sturdy sole and not reaching above the ankle.
+main:the end part of a person's arm beyond the wrist, including the palm, fingers, and thumb.
+tete:the upper part of the human body, or the front or upper part of the body of an animal, typically separated from the rest of the body by a neck, and containing the brain, mouth, and sense organs.
+parapluie:a device consisting of a circular canopy of cloth on a folding metal frame supported by a central rod, used as protection against rain or sometimes sun.
+tatouage:mark (a person or a part of the body) with an indelible design by inserting pigment into punctures in the skin.

@@ -29,3 +29,23 @@ hopital:Ou se trouve l'_______ le plus proche?
 chien:Ce _____ a l'air méchant.
 chat:Son ____ dort toute la journée.
 Feu:Le poêle a attrapé le ___.
+Feu de camp:Allons nous asseoir autour du ___ __ ____ pour la chaleur.
+poulet:Avez-vous déjà essayé d'attraper un ______.
+chapeau:Où avez-vous obtenu ce _______.
+eau:Puis-je avoir de l'___.
+chemise:C'est une belle _______ douce où as-tu eu ça.
+fatigue:Je suis ______.
+personne:qui est cette ________?
+ours:Fais attention! Il y a un _____ derrière toi!
+vache:Il y a une ferme de _____ pas trop loin d'ici.
+biche:Quoi de neuf pour la _____ qui est au milieu de la route lorsque vous commencez à conduire.
+cerf:Le ____ s'est arrêté devant les phares en raison de leur luminosité.
+heure:Il est 8 _______.
+miroir:Ne brise pas ce ______, c'est une mauvaise chance
+chaise:Je dois trouver une ______ pour s'asseoir.
+voiture:Cette _______ va vite!
+chaussures:Ses _________ sont très élégantes.
+main:Voulez-vous tenir ma ____?
+tete:utilise ta ____.
+parapluie:Apportez votre parapluie, il va _______.
+tatouage:Combien de ________ ​​vous avez
