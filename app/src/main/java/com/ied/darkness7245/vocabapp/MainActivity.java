@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         constraintLayout=(ConstraintLayout)findViewById(R.id.primary_constraintLayout);
         switch (item.getItemId()) {
             case R.id.settings:
+                //go to the settings intent if the select the settings options
                 Intent intent = new Intent(MainActivity.this,Settings.class);
                 startActivity(intent);
                 //easy
@@ -103,21 +104,31 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 {
                     diff = 4;
                 }
+                //english
                 if (Settings.lang == 0)
                 {
                     lang = 0;
                     b_s.setEnabled(false);
 
                 }
+                //french
                 else if (Settings.lang == 1)
                 {
                     lang = 1;
                     b_s.setEnabled(true);
                     hint3.setText("  ");
                 }
+                //Spanish
+                else if (Settings.lang == 2)
+                {
+                    lang = 2;
+                    b_s.setEnabled(true);
+                    hint3.setText(" ");
+                }
                 b_scramble.callOnClick();
                 return true;
             case R.id.help:
+                //display a help menu to inform the user of the rules
                 AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                 alertDialog.setTitle("Help");
                 alertDialog.setMessage("The first hint is the first letter of the word." +
@@ -135,6 +146,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 alertDialog.show();
                 return true;
             case R.id.leaderboard:
+                //go to the leaderboard intent if they select it
                 Intent leaderintent = new Intent(MainActivity.this,leaderboard.class);
                 startActivity(leaderintent);
                 return true;
@@ -151,11 +163,12 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 if (status != TextToSpeech.ERROR)
                     if (lang == 1)
                     {
+                        //sets the tts to french
                         tts.setLanguage(Locale.FRANCE);
                     }
                     else if (lang == 2)
                     {
-                        //need to get another tts
+                        //switches the tts to spanish
                         tts.setLanguage(locSpanish);
                     }
                 b_scramble.callOnClick();
@@ -163,7 +176,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                 LoadScores();
             }
         });
-
+        //getting the difficulty from the main menu
         int difficulty = getIntent().getIntExtra("example", -1);
 
         if (difficulty == 0)
@@ -211,7 +224,6 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
 
 
-
         hintone = (EditText) findViewById(R.id.txthintone);
         userinput = (EditText) findViewById(R.id.txtinput);
         Button hintbtn = (Button) findViewById(R.id.btnHInt);
@@ -223,6 +235,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         txtscore = (TextView) findViewById(R.id.txtviewscore);
         txthighscore = (TextView) findViewById(R.id.txthighscores);
 
+        //creating lists of all the words and sentences from a file
         final List<String> spanishwords = new ArrayList<>();
 
         try {
@@ -303,11 +316,13 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        //creating a database ref to store the information into the database
         FirebaseDatabase engdata = FirebaseDatabase.getInstance();
         DatabaseReference engref = engdata.getReference("englishsent");
         String key = engref.push().getKey();
         //engref.setValue(sentences);
 
+        //updating the lists if something is changed in the database
         engref.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -497,7 +512,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
             }
         });
 
-
+        //getting a leaderboard ref to store it to a database
         FirebaseDatabase leaderboards = FirebaseDatabase.getInstance();
         final DatabaseReference leaderref = leaderboards.getReference("leaderboard");
         //leaderref.setValue(leaderboard);
@@ -789,6 +804,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
 
                     if (keyCode == KeyEvent.KEYCODE_ENTER) {
                         String userInput = userinput.getText().toString();
+                        //if they get the word correct add score based on the length of the word
                         if (CheckWord(word, userInput) == true) {
                             Toast toast = Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_LONG);
                             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -799,7 +815,9 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                             AddScore(word);
                             txtscore.setText("Score: " + score);
                             b_scramble.callOnClick();
-                        } else if (CheckWord(word, userInput) == false) {
+                        }
+                        //if they do not get it wrong display a messsage
+                        else if (CheckWord(word, userInput) == false) {
                             triesleft--;
                             if(triesleft > 1) {
                                 Toast toast = Toast.makeText(getApplicationContext(), "Wrong! You have " + triesleft + " tries left" + ". Please guess again!", Toast.LENGTH_LONG);
@@ -818,17 +836,20 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                             userinput.setText(empty);
                             numofcorrect = 0;
                             numofwrong++;
-                            if (numofwrong > 3) {
-                                if (score > HighScore) {
-                                    Toast.makeText(getBaseContext(), "Congratulations you beat your Highscore!", Toast.LENGTH_SHORT).show();
+                            if (numofwrong > 3)
+                            {
+                                if (score > HighScore)
+                                {
+                                    //Toast.makeText(getBaseContext(), "Congratulations you beat your Highscore!", Toast.LENGTH_SHORT).show();
                                     HighScore = score;
                                     scoretosave = score;
                                     SaveScores(scoretosave);
                                     LoadScores();
-                                    AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-                                    alertDialog.setTitle("Leaderboard");
-                                    alertDialog.setMessage("Would you like to save your score to the leaderboard?");
-                                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
+                                    //creating a dialog box that asks the user if they want to save their score to the leaderboard
+                                    AlertDialog alertDialogs = new AlertDialog.Builder(MainActivity.this).create();
+                                    alertDialogs.setTitle("Leaderboard");
+                                    alertDialogs.setMessage("Would you like to save your score to the leaderboard?");
+                                    alertDialogs.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
                                             new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     leaderboard.add(scoretosave);
@@ -836,15 +857,15 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
                                                     dialog.dismiss();
                                                 }
                                             });
-                                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
+                                    alertDialogs.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
                                             new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
-                                                    //Intent intent = new Intent(MainActivity.this,GameActivity.class);
-                                                    //startActivity(intent);
                                                     dialog.dismiss();
                                                 }
                                             });
-                                    alertDialog.show();                                }
+                                    alertDialogs.show();
+                                }
+                                //dialog box asking the user if they want to play again
                                 AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                                 alertDialog.setTitle("Game Over");
                                 alertDialog.setMessage("Would you like to play again?");
@@ -1054,7 +1075,7 @@ public class MainActivity extends AppCompatActivity { //implements TextToSpeech.
             outputWriter.close();
 
             //display file saved message
-            Toast.makeText(getBaseContext(), "Score saved successfully!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getBaseContext(), "Score saved successfully!", Toast.LENGTH_SHORT).show();
 
         } catch (Exception e) {
             e.printStackTrace();
